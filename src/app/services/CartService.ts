@@ -1,0 +1,66 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Book } from '../models/book';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CartService {
+  private cartBadgeCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  //cartBadgeCount$ = this.cartBadgeCountSubject.asObservable();
+  private cartItems: Book[] = [];
+
+
+  getCartItems(): Book[] {
+    return this.cartItems;
+  }
+  getTotal(): number {
+    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  }
+  addToCart(book: Book): void {
+    const foundBook = this.cartItems.find((item) => item._id === book._id);
+    if (foundBook) {
+      
+      if (foundBook.availableQuantity > foundBook.quantity ) {
+        console.log('availableQuantity', foundBook.availableQuantity, foundBook.quantity);
+
+        foundBook.quantity += 1;
+      }
+    } else {
+      const bookCopy: Book = { ...book, quantity: 1 };
+      this.cartItems.push(bookCopy);
+    }
+    this.updateCartBadgeCount();
+  }
+
+  removeFromCart(book: Book): void {
+    const foundBook = this.cartItems.find((item) => item._id === book._id);
+    if (foundBook) {
+      foundBook.quantity -= 1;
+      if (foundBook.quantity === 0) {
+        this.cartItems = this.cartItems.filter((item) => item._id !== book._id);
+      }
+    }
+    this.updateCartBadgeCount();
+  }
+
+  clearCart(): void {
+    this.cartItems = [];
+    this.updateCartBadgeCount();
+  }
+
+
+
+  getCartBadgeCount(): Observable<number> {
+    return this.cartBadgeCountSubject.asObservable();
+  }
+
+  updateCartBadgeCount(): void {
+    const count = this.cartItems.reduce((total, item) => total + item.quantity, 0);
+    this.cartBadgeCountSubject.next(count);
+  }
+
+
+
+
+}

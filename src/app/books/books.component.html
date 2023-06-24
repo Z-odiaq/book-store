@@ -1,0 +1,40 @@
+<div class="book-grid">
+  <div class="book-card" *ngFor="let book of displayedBooks">
+    <div class="book-container">
+      <img [src]="book.cover" alt="Book Cover" class="book-cover">
+      <div class="overlay">
+        <button class="view-button" (click)="openModal(book)">
+          <i class="far fa-eye"></i>
+          <span class="view-text">View</span>
+        </button>
+      </div>
+    </div>
+    <h3 class="book-title">{{ book.title }}</h3>
+    <p class="book-author">{{ book.author }}</p>
+    <p class="book-price">Price: ${{ book.price }}</p>
+    <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
+    <div class="quantity-counter" *ngIf="getBookQuantity(book) > 0">
+      <button mat-icon-button (click)="decreaseQuantity(book)">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <span>{{ getBookQuantity(book) }}</span>
+      <button mat-icon-button (click)="increaseQuantity(book)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <button class="favorite-button" (click)="toggleFavorite(book)" [ngClass]="{ 'favorite': isFavorite(book) }">
+      <i class="far fa-heart"></i>
+    </button>
+  </div>
+</div>
+
+
+<div class="pagination">
+  <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
+  <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>

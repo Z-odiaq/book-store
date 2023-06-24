@@ -1,0 +1,31 @@
+<mat-toolbar color="primary" class="fixed-toolbar">
+  <mat-toolbar-row>
+    <span class="app-title">Book Store</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/books">
+      <i class="material-icons">book</i>
+      <span>Books</span>
+    </button>
+    <button mat-button routerLink="/favorites">
+      <i class="material-icons">favorite</i>
+      <span>Favorites</span>
+    </button>
+    <button mat-button routerLink="/purchased">
+      <i class="material-icons">shopping_cart</i>
+      <span>Purchased</span>
+    </button>
+    <button mat-button routerLink="/orders">
+      <i class="material-icons">receipt</i>
+      <span>Orders</span>
+    </button>
+    <button mat-button routerLink="/cart">
+      <i class="material-icons">shopping_cart</i>
+      <span>Cart</span>
+      <span class="cart-badge">{{ cartBadgeCount }}</span>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

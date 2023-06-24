@@ -1,0 +1,17 @@
+
+<div class="orders">
+    <h2>Orders</h2>
+    <div class="search-bar">
+        <input type="text" placeholder="Search orders" [(ngModel)]="searchTerm" (input)="searchOrders()" />
+        <select [(ngModel)]="selectedField">
+          <option *ngFor="let option of fieldOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+      
+    <div class="order-list">
+      <div *ngFor="let order of filteredOrders">
+        <!-- Display the order details here -->
+      </div>
+    </div>
+  </div>
+  

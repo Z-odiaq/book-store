@@ -1,0 +1,135 @@
+<!-- CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<!-- JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Add these before the closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>Items in your cart</h5>
+            <span class="pull-right">(<strong>{{ cartItems.length }}</strong>) Books</span>
+          </div>
+          <div class="ibox-content">
+            <div class="table-responsive">
+              <table class="table shoping-cart-table">
+                <tbody>
+                  <tr *ngFor="let item of cartItems">
+                    <td>
+                      <div>
+                        <img [src]="item.cover" alt="Product Image">
+                      </div>
+                    </td>
+                    <td class="desc">
+                      <h3>
+                        <a href="#">
+                          {{ item.title }}
+                        </a>
+                      </h3>
+                      <p class="small">
+                        {{ item.author }}
+                      </p>
+                      <dl class="small m-b-none">
+                        <dt>Rating</dt>
+                        <dd>{{ item.rating }}/5</dd>
+                      </dl>
+                      <div class="m-t-sm">
+                        <button (click)="removeItem(item)" class="btn btn-link"><i class="fa fa-trash"></i> Remove
+                          item</button>
+                      </div>
+                    </td>
+                    <td class="column">
+                      <p>{{ item.price | currency }}</p>
+                      <s *ngIf="item.price - item.discount > 0" class="small text-muted">{{ item.price - item.discount |
+                        currency }}</s>
+                    </td>
+                    <td width="80">
+                      <div class="item-quantity">
+                        <button mat-icon-button (click)="decreaseQuantity(item)">
+                          <mat-icon>remove</mat-icon>
+                        </button>
+                        <span class="quantity">{{ item.quantity }}</span>
+                        <button mat-icon-button (click)="increaseQuantity(item)">
+                          <mat-icon>add</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <h4>
+                        {{ item.price * item.quantity | currency }}
+                      </h4>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="ibox-content">
+            <button *ngIf="total > 0" class="btn btn-primary pull-right" (click)="switchModel()"><i
+                class="fa fa-shopping-cart"></i> Checkout</button>
+            <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>Order</h5>
+          </div>
+          <div class="ibox-content">
+            <span>Total</span>
+            <h2 class="font-bold">{{ total | currency }}</h2>
+            <hr>
+            <div class="input-group">
+              <input #coupon type="text" placeholder="Enter Coupon Code" class="form-control">
+              <span class="input-group-btn">
+                <button (click)="applyCoupon(coupon.value)" type="button" class="btn btn-primary">Apply</button>
+              </span>
+
+            </div>
+            <hr>
+            <div class="m-t-sm">
+              <div class="btn-group">
+                <button (click)="openPaymentDialog()" class="btn btn-primary pull-right">
+                  <i class="fa fa fa-shopping-cart"></i> Checkout
+                </button>
+
+              </div>
+            </div>
+          </div>
+          <div class="ibox">
+            <div class="ibox-title">
+              <h5>Support</h5>
+            </div>
+            <div class="ibox-content text-center">
+              <h3><i class="fa fa-phone"></i> +00 0000 00000 000</h3>
+              <span class="small">24/7 support</span>
+            </div>
+          </div>
+          <div class="ibox">
+            <div class="ibox-content">
+              <p class="font-bold">You may be interested in</p>
+              <hr>
+              <div *ngFor="let book of topRatedBooks">
+                <div class="book-container">
+                  <img [src]="book.cover" alt="Book Cover" class="book-cover">
+                </div>
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-author">{{ book.author }}</p>
+                <p class="book-price">Price: ${{ book.price }}</p>
+                <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
+                <button class="btn btn-outline-primary">
+                  <i class="far fa-heart"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
