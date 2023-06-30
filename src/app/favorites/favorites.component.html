@@ -1,1 +1,42 @@
-<p>favorites works!</p>
+<!-- CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<!-- JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Add these before the closing </body> tag -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<div class="container">
+    <h2 class="mt-4">Favorite Books</h2>
+  
+    <div *ngIf="loading" class="text-center mt-4">
+      <p>Loading favorite books...</p>
+    </div>
+  
+    <div *ngIf="!loading && favoriteBooks.length === 0" class="text-center mt-4">
+      <p>No favorite books found.</p>
+    </div>
+  
+    <div *ngIf="!loading && favoriteBooks.length > 0" class="favorite-books-container mt-4">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let book of favoriteBooks">
+          <div class="card h-100">
+            <img class="card-img-top" [src]="book.cover" [alt]="book.title">
+            <div class="card-body">
+              <h5 class="card-title">{{ book.title }}</h5>
+              <p class="card-text">Author: {{ book.author }}</p>
+              <p class="card-text">Price: ${{ book.price }}</p>
+                <button class="btn btn-primary d-flex justify-content-center" mat-raised-button color="primary" (click)="cartService.addToCart(book)">Add to Cart</button>
+ 
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">View</button>
+              <button class="btn btn-danger">Remove from Favorites</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

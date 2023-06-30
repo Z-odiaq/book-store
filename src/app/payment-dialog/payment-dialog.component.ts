@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CartService } from '../services/CartService';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-payment-dialog',
@@ -13,9 +14,13 @@ export class PaymentDialogComponent implements OnInit {
   expiryDate: string = '';
   cvv: string = '';
   cardholderName: string = '';
-loading: boolean = false;
+  loading: boolean = false;
+  total: number = 0;
+  coupon: any;
+  couponTotal: number = 0;
+  constructor(public cartService: CartService, public dialogRef: MatDialogRef<PaymentDialogComponent>) { }
 
-  constructor(public  cartService: CartService, public dialogRef: MatDialogRef<PaymentDialogComponent>) { }
+
   processPayment(): void {
     // Perform payment processing logic here api
     this.loading = true;
@@ -33,14 +38,20 @@ loading: boolean = false;
         expiryDate: this.expiryDate,
         cvv: this.cvv,
         cardholderName: this.cardholderName,
-        books : this.cartService.getCartItems(),
-        total: this.cartService.getTotal()
+        cart: this.cartService.getCartItems(),
+        coupon: this.cartService.getCartItems()
       })
     }).then((response) => {
-      console.log('Payment processed:', response);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+        this.dialogRef.close(true);
 
-      // Close the dialog, return true
+      }
+      this.cartService.clearCart();
       this.dialogRef.close(true);
+
+      return response.json();
+      // Close the dialog, return true
     }).catch((error) => {
       console.log('Payment failed:', error);
 
@@ -50,6 +61,10 @@ loading: boolean = false;
   }
 
   ngOnInit(): void {
+    this.total = this.cartService.getTotal();
+    this.coupon = this.cartService.getCoupon();
+    console.log(this.coupon);
+    this.couponTotal = this.total - (this.total * this.coupon?.percentage / 100);
   }
 
 

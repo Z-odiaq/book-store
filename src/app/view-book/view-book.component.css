@@ -1,0 +1,59 @@
+.book-details {
+    font-family: "Arial", sans-serif;
+    margin: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .LikesBox {
+    display: flex;
+    align-items: center;
+  }
+  
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  
+  .btn-light.filled {
+    color: red;
+  }
+  
+  .likes-count {
+    margin-left: 5px;
+  }
+  
+  .author,
+  .price,
+  .pages,
+  .rating,
+  .discount,
+  .available-quantity,
+  .language,
+  .genre,
+  .description {
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  .cover img {
+    max-width: 200px;
+    height: auto;
+  }
+  

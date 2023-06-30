@@ -1,5 +1,17 @@
-<h2>Payment Information</h2>
 <form class="payment-form">
+  <h2>Payment Information</h2>
+
+  <span>Total</span>
+  <div *ngIf="coupon" class="font-bold text-success">
+    <h2 class="font-bold">{{ couponTotal | currency }}</h2>
+    <h3 class="text-muted"><del>{{ total | currency }}</del></h3>
+  </div>
+  <h3 *ngIf="!coupon" class="text-bold">{{ total | currency }}</h3>
+
+  <h2 *ngIf="couponTotal<=0" class="font-bold">{{ total | currency }}</h2>
+  <p *ngIf="coupon" class="text-success">Coupon used: -{{ coupon.percentage }}%</p>
+  <hr>
+  
   <div class="form-group">
     <label for="cardNumber">
       <i class="fas fa-credit-card"></i>

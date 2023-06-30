@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
 body{margin-top:20px;
   background:#eee;
 }
@@ -7,6 +9,39 @@ h3 {
 .text-navy {
   color: #1ab394;
 }
+.favorite-button.favorite {
+  color: red;
+}
+.view-text {
+  margin-left: 5px;
+}
+.favorite-button:hover {
+  color: red;
+}
+
+.favorite-button.active {
+  color: red;
+}
+.favorite-button {
+  bottom: 10px;
+  left: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 24px;
+  color: lightpink;
+  transition: color 0.3s;
+}
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
 .cart-product-imitation {
 text-align: center;
 padding-top: 30px;
@@ -93,3 +128,7 @@ padding: 10px 15px;
 }
 
 
+.scrollable-content {
+  max-height: 800px;
+  overflow-y: auto;
+}

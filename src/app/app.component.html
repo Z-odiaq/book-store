@@ -1,14 +1,39 @@
 <mat-toolbar color="primary" class="fixed-toolbar">
   <mat-toolbar-row>
     <span class="app-title">Book Store</span>
+    <div *ngIf="!this.userService.token">
+
+      <mat-card-content>
+        <form appearance="outline">
+          <label>Email</label>
+          <input matInput [(ngModel)]="userService.email" name="email" type="email" required>
+
+          <label>Password</label>
+          <input matInput [(ngModel)]="this.userService.password" name="password" type="password" required>
+          <mat-card-actions>
+            <button mat-raised-button color="secondary" (click)="this.userService.login()">Login</button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+      
+    </div>
+    <div *ngIf="this.userService.token">
+      <label>Welcome {{this.userService.user.firstname}}</label>
+    </div>
+
     <span class="spacer"></span>
     <button mat-button routerLink="/books">
       <i class="material-icons">book</i>
       <span>Books</span>
     </button>
+    <button mat-button routerLink="/manage-books">
+      <i class="material-icons"><i class="fas fa-books    "></i></i>
+      <span>Manage Books</span>
+    </button>
     <button mat-button routerLink="/favorites">
       <i class="material-icons">favorite</i>
       <span>Favorites</span>
+      <span class="cart-badge">{{ FavoritesBadgeCount }}</span>
     </button>
     <button mat-button routerLink="/purchased">
       <i class="material-icons">shopping_cart</i>

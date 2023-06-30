@@ -18,11 +18,5 @@ export interface Book {
     quantity: number; // Add the quantity property to the Book model
   }
   
-export interface Review {
-    reviewer: string;
-    date: string;
-    rating: number;
-    comments: string;
-}
 
   

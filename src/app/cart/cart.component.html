@@ -70,9 +70,34 @@
             </div>
           </div>
           <div class="ibox-content">
-            <button *ngIf="total > 0" class="btn btn-primary pull-right" (click)="switchModel()"><i
+            <button *ngIf="total > 0" class="btn btn-primary pull-right" (click)="openPaymentDialog()"><i
                 class="fa fa-shopping-cart"></i> Checkout</button>
-            <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
+
+            <a href="/" class="btn btn-white"><i class="fa fa-arrow-left"></i>Continue shopping</a>
+          </div>
+        </div>
+        <div class="ibox">
+          <hr>
+          <div  *ngIf="this.userService.token" class="ibox-title">
+            <h3>Books From Your Favorites</h3>
+            <div class="scrolling-wrapper">
+              <div class="book-card" *ngFor="let book of this.bookService.favorites">
+                <div class="book-container">
+                  <img [src]="book.cover" alt="Book Cover" class="book-cover">
+                </div>
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-category">{{ book.genre }}</p>
+                <span>
+                  <i class="fas fa-star" colo>{{book.rating}}</i>
+                </span>
+                <p class="book-author">{{ book.author }}</p>
+                <p class="book-price">Price: ${{ book.price }}</p>
+                <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
+              </div>
+            </div>
+
+
+
           </div>
         </div>
       </div>
@@ -83,15 +108,21 @@
           </div>
           <div class="ibox-content">
             <span>Total</span>
-            <h2 class="font-bold">{{ total | currency }}</h2>
+            <div *ngIf="couponTotal>0" class="font-bold text-success">
+              <h2 class="font-bold">{{ couponTotal | currency }}</h2>
+              <h3 class="text-muted"><del>{{ total | currency }}</del></h3>
+            </div>
+            <h2 *ngIf="couponTotal<=0" class="font-bold">{{ total | currency }}</h2>
             <hr>
             <div class="input-group">
               <input #coupon type="text" placeholder="Enter Coupon Code" class="form-control">
               <span class="input-group-btn">
                 <button (click)="applyCoupon(coupon.value)" type="button" class="btn btn-primary">Apply</button>
               </span>
-
             </div>
+            <p *ngIf="couponError" class="text-danger">{{ couponError }}</p>
+            <p *ngIf="couponPercentage" class="text-success">{{ couponPercentage }}%</p>
+            <p *ngIf="couponTotal" class="text-success">Expire on: {{ expiry }}</p>
             <hr>
             <div class="m-t-sm">
               <div class="btn-group">
@@ -101,35 +132,36 @@
 
               </div>
             </div>
-          </div>
-          <div class="ibox">
-            <div class="ibox-title">
-              <h5>Support</h5>
+
+            <div class="ibox">
+              <div class="ibox-title">
+                <h5>Support</h5>
+              </div>
+              <div class="ibox-content text-center">
+                <h3><i class="fa fa-phone"></i> +00 0000 00000 000</h3>
+                <span class="small">24/7 support</span>
+              </div>
             </div>
-            <div class="ibox-content text-center">
-              <h3><i class="fa fa-phone"></i> +00 0000 00000 000</h3>
-              <span class="small">24/7 support</span>
-            </div>
-          </div>
-          <div class="ibox">
-            <div class="ibox-content">
-              <p class="font-bold">You may be interested in</p>
-              <hr>
-              <div *ngFor="let book of topRatedBooks">
-                <div class="book-container">
-                  <img [src]="book.cover" alt="Book Cover" class="book-cover">
+            <div class="ibox">
+              <div class="ibox-content scrollable-content">
+                <h4 class="font-bold">You may be interested in</h4>
+                <hr>
+                <div *ngFor="let book of topRatedBooks">
+                  <div class="book-container">
+                    <img [src]="book.cover" alt="Book Cover" class="book-cover">
+                  </div>
+                  <h3 class="book-title">{{ book.title }}</h3>
+                  <p class="book-author">{{ book.author }}</p>
+                  <p class="book-price">Price: ${{ book.price }}</p>
+                  <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
+                  <button class="favorite-button" aria-hidden="true" (click)="this.bookService.addToFavorites(book._id)"
+                    [ngClass]="{ 'favorite': this.bookService.isFavorite(book)  }">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                  </button>
                 </div>
-                <h3 class="book-title">{{ book.title }}</h3>
-                <p class="book-author">{{ book.author }}</p>
-                <p class="book-price">Price: ${{ book.price }}</p>
-                <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
-                <button class="btn btn-outline-primary">
-                  <i class="far fa-heart"></i>
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>

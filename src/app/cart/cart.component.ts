@@ -4,6 +4,8 @@ import { Book } from '../models/book'; // Replace with your actual cart item mod
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
+import { UserService } from '../services/user.Service';
+import { BookService } from '../services/book.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,13 +15,17 @@ import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.compone
 export class CartComponent implements OnInit {
   cartItems: Book[] = [];
   total: number = 0;
-
+  couponTotal: number = 0;
   latest: Book[] = [];
   topSellingBooks: Book[] = [];
   topRatedBooks: Book[] = [];
   favorites: Book[] = [];
   modal: Boolean = false;
-  constructor(private http: HttpClient, private cartService: CartService, private dialog: MatDialog) { }
+  couponError: String = '';
+  expiry: String = '';
+  couponPercentage = 0;
+
+  constructor(private http: HttpClient, private cartService: CartService, public userService: UserService, public bookService: BookService,private dialog: MatDialog,) { }
 
 
   openPaymentDialog(): void {
@@ -46,17 +52,50 @@ export class CartComponent implements OnInit {
 
   //applyCoupon
   applyCoupon(coupon: string) {
-    console.log('Error applying coupon:', coupon);
+    //console.log('Error applying coupon:', coupon);
 
-    // this.http.post('http://127.0.0.1/api/coupons/apply', { coupon: coupon }).subscribe(
-    //   (response) => {
-    //     console.log('Coupon applied:', response);
-    //     this.calculateTotal();
-    //   },
-    //   (error) => {
-    //     console.log('Error applying coupon:', error);
-    //   }
-    // );
+    //GET coupon and add the code to the params
+
+
+    fetch(`http://127.0.0.1:3000/api/coupons/code/${coupon}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'token': this.userService.getToken(),
+      }
+    }).then((response) => {
+      if (response.status !== 200) {
+        response.json().then((data) => {
+          console.log('Error applying coupon:', data);
+          this.couponError = data.error;
+          this.cartService.setCoupon(null);
+          this.total = this.cartService.getTotal();
+          this.couponPercentage = 0;
+          this.couponTotal = 0;
+          this.expiry = '';
+
+          return;
+        });
+
+      }
+      return response.json(); // Parse the response as JSON
+    })
+      .then((data) => {
+        console.log('Coupon applied:', data);
+        this.couponPercentage = data.percentage.toFixed(2);
+        this.couponTotal = this.total - (this.total * (data.percentage / 100));
+        this.expiry = data.expiryDate.split('T')[0];
+        this.couponError = '';
+        data.code = coupon;
+        this.cartService.setCoupon(data);
+      })
+      .catch((error) => {
+        console.log('Error applying coupon:', error);
+        this.couponError = error.merroressage;
+
+      });
+
+
   }
 
   //get favorites books

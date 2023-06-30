@@ -17,6 +17,11 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from './services/order.service';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ManageBooksComponent } from './manage-books/manage-books.component';
+import { UserService } from './services/user.Service';
+import { ViewBookComponent } from './view-book/view-book.component';
+import { CreateBookComponent } from './create-book/create-book.component';
+import { EditBookComponent } from './edit-book/edit-book.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +32,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     PurchasedComponent,
     OrdersComponent,
     PaymentDialogComponent,
+    ManageBooksComponent,
+    ViewBookComponent,
+    CreateBookComponent,
+    EditBookComponent
     
   ],
   imports: [
@@ -40,7 +49,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     FormsModule
   ],
-  providers: [OrderService],
+  providers: [OrderService,UserService],
   bootstrap: [AppComponent],
 
 })
