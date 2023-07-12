@@ -5,17 +5,17 @@
 
       <mat-card-content>
         <form appearance="outline">
-          <label>Email</label>
-          <input matInput [(ngModel)]="userService.email" name="email" type="email" required>
-
-          <label>Password</label>
-          <input matInput [(ngModel)]="this.userService.password" name="password" type="password" required>
+          <div class="form-group">
+            <input placeholder="Email" matInput [(ngModel)]="userService.email" name="email" type="email" required>
+            <input placeholder="Password" matInput [(ngModel)]="this.userService.password" name="password"
+              type="password" required>
+          </div>
           <mat-card-actions>
             <button mat-raised-button color="secondary" (click)="this.userService.login()">Login</button>
           </mat-card-actions>
         </form>
       </mat-card-content>
-      
+
     </div>
     <div *ngIf="this.userService.token">
       <label>Welcome {{this.userService.user.firstname}}</label>
@@ -26,28 +26,30 @@
       <i class="material-icons">book</i>
       <span>Books</span>
     </button>
-    <button mat-button routerLink="/manage-books">
+    <button *ngIf="this.userService.admin" mat-button routerLink="/manage-books">
       <i class="material-icons"><i class="fas fa-books    "></i></i>
       <span>Manage Books</span>
     </button>
-    <button mat-button routerLink="/favorites">
-      <i class="material-icons">favorite</i>
-      <span>Favorites</span>
-      <span class="cart-badge">{{ FavoritesBadgeCount }}</span>
-    </button>
-    <button mat-button routerLink="/purchased">
-      <i class="material-icons">shopping_cart</i>
-      <span>Purchased</span>
-    </button>
-    <button mat-button routerLink="/orders">
-      <i class="material-icons">receipt</i>
-      <span>Orders</span>
-    </button>
-    <button mat-button routerLink="/cart">
-      <i class="material-icons">shopping_cart</i>
-      <span>Cart</span>
-      <span class="cart-badge">{{ cartBadgeCount }}</span>
-    </button>
+    <div *ngIf="this.userService.token">
+      <button mat-button routerLink="/favorites">
+        <i class="material-icons">favorite</i>
+        <span>Favorites</span>
+        <span class="cart-badge">{{ FavoritesBadgeCount }}</span>
+      </button>
+      <button mat-button routerLink="/purchased">
+        <i class="material-icons">shopping_cart</i>
+        <span>Purchased</span>
+      </button>
+      <button mat-button routerLink="/orders">
+        <i class="material-icons">receipt</i>
+        <span>Orders</span>
+      </button>
+      <button mat-button routerLink="/cart">
+        <i class="material-icons">shopping_cart</i>
+        <span>Cart</span>
+        <span class="cart-badge">{{ cartBadgeCount }}</span>
+      </button>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 

@@ -31,8 +31,8 @@
  
             </div>
             <div class="card-footer">
-              <button class="btn btn-primary">View</button>
-              <button class="btn btn-danger">Remove from Favorites</button>
+              <button (click)="openModal(book)" class="btn btn-primary">View</button>
+              <button  (click)="remove(book)" class="btn btn-danger">Remove from Favorites</button>
             </div>
           </div>
         </div>

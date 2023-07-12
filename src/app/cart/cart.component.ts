@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { UserService } from '../services/user.Service';
 import { BookService } from '../services/book.service';
+import { environment } from '../../environments/environment';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
+
 
 @Component({
   selector: 'app-cart',
@@ -13,6 +16,9 @@ import { BookService } from '../services/book.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  stripe: Stripe | null = null;
+  paymentHandler: any = null;
+
   cartItems: Book[] = [];
   total: number = 0;
   couponTotal: number = 0;
@@ -24,22 +30,12 @@ export class CartComponent implements OnInit {
   couponError: String = '';
   expiry: String = '';
   couponPercentage = 0;
+  stripeAPIKey: string = '';
 
-  constructor(private http: HttpClient, private cartService: CartService, public userService: UserService, public bookService: BookService,private dialog: MatDialog,) { }
+  constructor(private http: HttpClient, private cartService: CartService, public userService: UserService, public bookService: BookService,private dialog: MatDialog,) { 
+    this.loadStripeInstance();
 
-
-  openPaymentDialog(): void {
-    const dialogRef = this.dialog.open(PaymentDialogComponent, {
-      // Dialog configuration options
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // Handle the dialog close event if needed
-      console.log('Dialog closed:', result);
-    });
   }
-
-
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
     this.calculateTotal();
@@ -47,7 +43,57 @@ export class CartComponent implements OnInit {
     this.fetchLatests();
     this.fetchTopBooks();
     this.fetchTopRated();
+    this.loadStripeInstance();
+    this.invokeStripe();
+    this.stripeAPIKey = environment.stripePublishableKey;
   }
+
+  invokeStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement('script');
+  
+      script.id = 'stripe-script';
+      script.type = 'text/javascript';
+      script.src = 'https://checkout.stripe.com/checkout.js';
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: this.stripeAPIKey,
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken);
+            alert('Payment has been successfull!');
+          },
+        });
+      };
+  
+      window.document.body.appendChild(script);
+    }
+  }
+
+
+  async loadStripeInstance() {
+    this.stripe = await loadStripe(this.stripeAPIKey);
+  }
+
+  openPaymentDialog(): void {
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: this.stripeAPIKey,
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken);
+        alert('Stripe token generated!');
+      },
+    });
+    paymentHandler.open({
+      
+      name: 'Confirm purchase',
+      description: '3 widgets',
+      amount: this.cartService.getTotal() * 100,
+    });
+  }
+
+
+
 
 
   //applyCoupon

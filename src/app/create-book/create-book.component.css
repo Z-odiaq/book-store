@@ -1,0 +1,24 @@
+
+.container {
+    margin-top: 20px;
+    height:800px;
+    overflow-y: scroll;
+  }
+  
+  .create-book-form {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  textarea {
+    height: 150px;
+  }
+  

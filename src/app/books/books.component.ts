@@ -64,11 +64,6 @@ export class BooksComponent implements OnInit {
   addToCart(book: Book) {
     this.cartService.addToCart(book);
   }
-
-
-
-
-
   previousPage() {
     if (this.bookService.currentPage > 1) {
       this.bookService.currentPage--;

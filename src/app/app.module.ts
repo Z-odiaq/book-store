@@ -22,6 +22,8 @@ import { UserService } from './services/user.Service';
 import { ViewBookComponent } from './view-book/view-book.component';
 import { CreateBookComponent } from './create-book/create-book.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { EditBookComponent } from './edit-book/edit-book.component';
     ManageBooksComponent,
     ViewBookComponent,
     CreateBookComponent,
-    EditBookComponent
+    EditBookComponent,
+    
     
   ],
   imports: [
@@ -47,7 +50,9 @@ import { EditBookComponent } from './edit-book/edit-book.component';
     MatCardModule,
     MatDialogModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatInputModule,
+    MatMenuModule,
   ],
   providers: [OrderService,UserService],
   bootstrap: [AppComponent],

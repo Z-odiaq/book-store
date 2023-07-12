@@ -13,6 +13,7 @@ export class UserService {
     token: string = '';
     email = '';
     password = '';
+    admin = true;
     favoriteBadgeCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
     constructor(private http: HttpClient) { }

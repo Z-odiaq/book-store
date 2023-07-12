@@ -46,7 +46,7 @@ export class BookService {
     this.http.get<Book[]>('http://127.0.0.1:3000/api/books').subscribe(
       (response) => {
         //log length of response
-        console.log('Number of books:', response.length);
+        //console.log('Number of books:', response.length);
         this.books = response;
         this.filteredBooks = response;
         //put books genre in categories array
@@ -69,7 +69,9 @@ export class BookService {
       }
     );
   }
-
+getBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>('http://127.0.0.1:3000/api/books');
+  }
 
   calculateTotalPages() {
     this.totalPages = Math.ceil(this.filteredBooks.length / this.itemsPerPage);
@@ -96,9 +98,31 @@ export class BookService {
   clearSearch() {
     this.filteredBooks = this.books;
   }
-  deleteBook(book: Book) {
-    throw new Error('Method not implemented.');
+  deleteBook(bookId: string): Promise<boolean>{
+
+     return fetch('http://localhost:3000/api/books/' + bookId, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.userService.getToken()
+      }
+    }).then(response => {
+      if (response.ok) {
+        this.fetchBooks();
+        console.log('Book deleted successfully');
+        return true;
+      } else {
+        console.log('Error deleting book');
+        return false;
+      }
+    }).catch(error => {
+      console.log('Error deleting book:', error);
+      return false;
+    });
+
+
   }
+  
   editBook(book: Book) {
     throw new Error('Method not implemented.');
   }

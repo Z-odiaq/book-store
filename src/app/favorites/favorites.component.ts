@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from '../models/book';
 import { UserService } from '../services/user.Service';
 import { CartService } from '../services/CartService';
+import { BookService } from '../services/book.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewBookComponent } from '../view-book/view-book.component';
 
 @Component({
   selector: 'app-favorites',
@@ -12,13 +15,26 @@ import { CartService } from '../services/CartService';
 export class FavoritesComponent implements OnInit {
   favoriteBooks: Book[] = [];
   loading = false;
-  constructor(public userService: UserService, public cartService : CartService) { }
+  constructor(public userService: UserService, public cartService : CartService,public bookService : BookService,private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadFavoriteBooks();
     
   }
+  openModal(book: Book): void {
+    this.bookService.bookToView = book;
+    const dialogRef = this.dialog.open(ViewBookComponent, {
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle the dialog close event if needed
+      console.log('Dialog closed:', result);
+    });
+  }
+  remove(book: Book) {
+    this.bookService.addToFavorites(book._id);
+    this.favoriteBooks = this.favoriteBooks.filter(item => item._id !== book._id);
+  }
   loadFavoriteBooks() {
     // fetch favorite books from /books/favorite/:userId API
     this.loading = true;

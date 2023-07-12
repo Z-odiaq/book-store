@@ -1,0 +1,82 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+.book-stats {
+    margin-top: 30px;
+  }
+  
+  .card {
+    text-align: center;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-bar input {
+    margin-right: 10px;
+  }
+  
+  .filters-sort {
+    display: flex;
+    align-items: center;
+  }
+  
+  .table th:nth-child(5),
+  .table td:nth-child(5) {
+    white-space: nowrap;
+  }
+  
+  .actions-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .actions-buttons button {
+    margin-right: 5px;
+  }
+  /* Adjust the width of "Books by Genre" cards */
+.lItem {
+    padding:  4px
+  }
+  .card {
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: #ccc;
+    border-style: solid;
+    margin-bottom: 30px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    align-items: center;
+align-self: center;
+  }
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-img-top {
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  @media (max-width: 767px) {
+    .card {
+      width: 100%;
+    }
+  }
