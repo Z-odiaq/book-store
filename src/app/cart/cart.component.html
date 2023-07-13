@@ -13,6 +13,9 @@
         <div class="ibox">
           <div class="ibox-title">
             <h5>Items in your cart</h5>
+            <div class="m-t-sm">
+              <button (click)="this.cartService.clearCart()" class="btn btn-link"><i class="fa fa-trash"></i> Clear Cart</button>
+            </div>
             <span class="pull-right">(<strong>{{ cartItems.length }}</strong>) Books</span>
           </div>
           <div class="ibox-content">
@@ -48,17 +51,7 @@
                       <s *ngIf="item.price - item.discount > 0" class="small text-muted">{{ item.price - item.discount |
                         currency }}</s>
                     </td>
-                    <td width="80">
-                      <div class="item-quantity">
-                        <button mat-icon-button (click)="decreaseQuantity(item)">
-                          <mat-icon>remove</mat-icon>
-                        </button>
-                        <span class="quantity">{{ item.quantity }}</span>
-                        <button mat-icon-button (click)="increaseQuantity(item)">
-                          <mat-icon>add</mat-icon>
-                        </button>
-                      </div>
-                    </td>
+
                     <td>
                       <h4>
                         {{ item.price * item.quantity | currency }}

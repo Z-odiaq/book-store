@@ -3,18 +3,18 @@
     <span class="app-title">Book Store</span>
     <div *ngIf="!this.userService.token">
 
-      <mat-card-content>
+      <div>
         <form appearance="outline">
           <div class="form-group">
-            <input placeholder="Email" matInput [(ngModel)]="userService.email" name="email" type="email" required>
-            <input placeholder="Password" matInput [(ngModel)]="this.userService.password" name="password"
-              type="password" required>
-          </div>
-          <mat-card-actions>
+            <div class="justify-content-center flex-column">
+              <input placeholder="Email" matInput [(ngModel)]="userService.email" name="email" type="email" required>
+              <input placeholder="Password" matInput [(ngModel)]="this.userService.password" name="password"
+                type="password" required>
+            </div>
             <button mat-raised-button color="secondary" (click)="this.userService.login()">Login</button>
-          </mat-card-actions>
+          </div>
         </form>
-      </mat-card-content>
+      </div>
 
     </div>
     <div *ngIf="this.userService.token">

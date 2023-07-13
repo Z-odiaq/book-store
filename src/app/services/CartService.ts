@@ -27,12 +27,7 @@ export class CartService {
   addToCart(book: Book): void {
     const foundBook = this.cartItems.find((item) => item._id === book._id);
     if (foundBook) {
-
-      if (foundBook.availableQuantity > foundBook.quantity) {
-        console.log('availableQuantity', foundBook.availableQuantity, foundBook.quantity);
-
-        foundBook.quantity += 1;
-      }
+      return;
     } else {
       const bookCopy: Book = { ...book, quantity: 1 };
       this.cartItems.push(bookCopy);

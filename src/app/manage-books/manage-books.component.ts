@@ -143,12 +143,11 @@ export class ManageBooksComponent implements OnInit {
   applyFilter() {
     this.filteredBooks = this.books.filter(book => {
       // Check if the book matches the selected genre, rating, and price criteria
-      const genreMatch = this.selectedRating ? Math.round(Number(book.rating) * 10) / 10 === Number(this.selectedRating) : true;
-      const ratingMatch = this.selectedRating ? book.rating === parseInt(this.selectedRating, 10) : true;
+      const ratingMatch = this.selectedRating ? Number(book.rating) <= Number(this.selectedRating) : true;
       const priceMatch = this.selectedPriceRange ? this.checkPriceRange(book.price, this.selectedPriceRange) : true;
 
       // Return true if all criteria are matched
-      return genreMatch && ratingMatch && priceMatch;
+      return  ratingMatch && priceMatch;
     });
   }
 

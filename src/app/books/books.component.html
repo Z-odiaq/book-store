@@ -1,116 +1,130 @@
-<div class="search-container">
-  <input type="text" placeholder="Search books" [(ngModel)]="searchQuery" (keyup)="searchBooks()">
-  <button mat-icon-button (click)="this.bookService.clearSearch()">
-    <mat-icon>close</mat-icon>
-  </button>
-</div>
-
-<div class="main-container">
-  <div class="filters-container">
-    <h4>Filters</h4>
-    <div class="filter-group">
-      <label for="filter-category">Category:</label>
-      <select id="filter-category" [(ngModel)]="this.bookService.selectedCategory" (change)="this.bookService.applyFilters()">
-        <option value="All">All Categories</option>
-        <option *ngFor="let category of this.bookService.categories" [value]="category">{{ category }}</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label for="filter-price">Price Range:</label>
-      <select id="filter-price" [(ngModel)]="this.bookService.selectedPriceRange" (change)="this.bookService.applyFilters()">
-        <option value="All">Any Price</option>
-        <option value="0-10">$0 - $10</option>
-        <option value="10-25">$10 - $25</option>
-        <option value="25-50">$25 - $50</option>
-        <option value="50+">$50+</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label for="filter-rating">Rating:</label>
-      <select id="filter-rating" [(ngModel)]="this.bookService.selectedRating" (change)="this.bookService.applyFilters()">
-        <option value="All">Any Rating</option>
-        <option value="5">5 Stars</option>
-        <option value="4">4 Stars</option>
-        <option value="3">3 Stars</option>
-        <option value="2">2 Stars</option>
-        <option value="1">1 Star</option>
-      </select>
-
-
-      <div class="filter-group">
-        <label for="filter-sort">Sort By:</label>
-        <select id="filter-sort" [(ngModel)]="this.bookService.selectedSort" (change)="this.bookService.applyFilters()">
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="price">Price</option>
-          <option value="rating">Rating</option>
-        </select>
-
-
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="d-flex justify-content-between mb-3">
+        <div class="search-bar">
+          <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
+          <button (click)="search()" class="btn btn-primary"><i class="fas fa-search"></i></button>
+          <button (click)="searchClear()" class="btn btn-primary"><i class="fas fa-trash"></i></button>
+        </div>
+        <br>
+        <div class="filters-sort">
+          <select class="form-control" [(ngModel)]="selectedRating">
+            <option value="">All Ratings</option>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+            <!-- Add more rating options -->
+          </select>
+          <select class="form-control" [(ngModel)]="selectedPriceRange">
+            <option value="">All Prices</option>
+            <option value="0-10">$0 - $10</option>
+            <option value="10-25">$10 - $25</option>
+            <option value="25-50">$25 - $50</option>
+            <option value="50+">$50+</option>
+            <!-- Add more price options -->
+          </select>
+          <select class="form-control" [(ngModel)]="selectedSort" (change)="sortBooks()">
+            <option value="">Sort by Title</option>
+            <option value="title-asc">Title (A-Z)</option>
+            <option value="title-desc">Title (Z-A)</option>
+            <option value="price-asc">Price (Low to High)</option>
+            <option value="price-desc">Price (High to Low)</option>
+            <option value="rating-asc">Rating (Low to High)</option>
+            <option value="rating-desc">Rating (High to Low)</option>
+            <option value="pages-asc">Pages (Low to High)</option>
+            <option value="pages-desc">Pages (High to Low)</option>
+            <option value="quantity-asc">Quantity (A-Z)</option>
+            <option value="quantity-desc">Quantity (Z-A)</option>
+            <option value="author-asc">Author (A-Z)</option>
+            <option value="author-desc">Author (Z-A)</option>
+            <!-- Add more sorting options -->
+          </select>
+          <button (click)="applyFilter()" class="btn btn-secondary">Filter</button>
+        </div>
+        <hr>
       </div>
 
-      <div class="filter-group">
-        <label for="filter-order">Order:</label>
-        <select id="filter-order" [(ngModel)]="this.bookService.selectedOrder" (change)="this.bookService.applyFilters()">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
-      </div>
-      <hr>
-      <div class="filter-group">
-        <span for="filter-order">Result: <strong>{{ this.bookService.filteredBooks.length }}</strong></span>
-        <div>
-          <button mat-raised-button color="primary" (click)="this.bookService.clearFilters()">Clear Filters</button>
-
+      <div class="book-grid">
+        <div class="book-card" *ngFor="let book of this.filteredBooks">
+          <div class="book-container">
+            <img [src]="book.cover" alt="Book Cover" class="book-cover">
+            <div class="overlay">
+              <button class="view-button" (click)="openModal(book)">
+                <i class="far fa-eye"></i>
+                <span class="view-text">View</span>
+              </button>
+            </div>
+          </div>
+          <h3 class="book-title">{{ book.title }}</h3>
+          <p class="book-category">{{ book.genre }}</p>
+          <span>
+            <i class="fas fa-star" colo>{{book.rating}}</i>
+          </span>
+          <p class="book-author">{{ book.author }}</p>
+          <p class="book-price">Price: ${{ book.price }}</p>
+          <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
+          <div *ngIf="this.userService.token">
+            <button class="favorite-button" aria-hidden="true" (click)="this.bookService.addToFavorites(book._id)"
+              [ngClass]="{ 'favorite': this.bookService.isFavorite(book)  }">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="book-grid">
-    <div class="book-card" *ngFor="let book of this.bookService.displayedBooks">
-      <div class="book-container">
-        <img [src]="book.cover" alt="Book Cover" class="book-cover">
-        <div class="overlay">
-          <button class="view-button" (click)="openModal(book)">
-            <i class="far fa-eye"></i>
-            <span class="view-text">View</span>
-          </button>
+
+
+
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-sm-6 col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Books by Genre</h5>
+              <button class="btn btn-debug" (click)="filterByGenre('')">
+                All
+                <span class="badge badge-primary badge-pill">{{ bookGenres.length }}</span>
+              </button>
+              <ul class="list-group">
+                <div class="lItem justify-content-between align-items-center" *ngFor="let genre of bookGenres">
+                  <button class="btn btn-debug" (click)="filterByGenre(genre.name)">
+                    {{ genre.name }}
+                    <span class="badge badge-primary badge-pill">{{ genre.count }}</span>
+                  </button>
+                </div>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <h3 class="book-title">{{ book.title }}</h3>
-      <p class="book-category">{{ book.genre }}</p>
-        <span >
-          <i class="fas fa-star" colo>{{book.rating}}</i> 
-        </span>        
-      <p class="book-author">{{ book.author }}</p>
-      <p class="book-price">Price: ${{ book.price }}</p>
-      <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
-      <!-- <div class="quantity-counter" *ngIf="getBookQuantity(book) > 0">
-        <button mat-icon-button (click)="decreaseQuantity(book)">
-          <mat-icon>remove</mat-icon>
-        </button>
-        <span>{{ getBookQuantity(book) }}</span>
-        <button mat-icon-button (click)="increaseQuantity(book)">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div> -->
-      <div *ngIf="this.userService.token">
-      <button class="favorite-button" aria-hidden="true" (click)="this.bookService.addToFavorites(book._id)" [ngClass]="{ 'favorite': this.bookService.isFavorite(book)  }">
-        <i class="fa fa-heart" aria-hidden="true"></i>
-      </button>
-      </div>
     </div>
-  </div>
-</div>
 
-<div class="pagination">
-  <button class="pagination-button" (click)="previousPage()" [disabled]="this.bookService.currentPage === 1">
-    Previous
-  </button>
-  <span class="pagination-info">Page {{ this.bookService.currentPage }} of {{ this.bookService.totalPages }}</span>
-  <button class="pagination-button" (click)="nextPage()" [disabled]="this.bookService.currentPage === this.bookService.totalPages">
-    Next
-  </button>
-</div>
+
+
+
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </div>
+
+
+  <div class="pagination">
+    <button class="pagination-button" (click)="previousPage()" [disabled]="this.bookService.currentPage === 1">
+      Previous
+    </button>
+    <span class="pagination-info">Page {{ this.bookService.currentPage }} of {{ this.bookService.totalPages }}</span>
+    <button class="pagination-button" (click)="nextPage()"
+      [disabled]="this.bookService.currentPage === this.bookService.totalPages">
+      Next
+    </button>
+  </div>

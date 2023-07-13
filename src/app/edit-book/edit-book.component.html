@@ -1,8 +1,8 @@
 <div class="container">
-    <form (submit)="updateBook()" class="edit-book-form" enctype="multipart/form-data">
-      <h2>Edit Book</h2>
-
-        <div class="form-group">
+  <h2>Update Book</h2>
+  <div >
+    <form (submit)="updateBook()" class="create-book-form" enctype="multipart/form-data">
+      <div class="form-group">
         <label>Title</label>
         <input type="text" class="form-control" [(ngModel)]="book.title" name="title" required>
       </div>
@@ -14,10 +14,9 @@
         <label>Price</label>
         <input type="number" class="form-control" [(ngModel)]="book.price" name="price" required>
       </div>
-
       <div class="form-group">
-        <label>Cover Page Link</label>
-        <input type="text" class="form-control" [(ngModel)]="book.cover" name="cover" required>
+        <label>Cover</label>
+        <input type="file" class="form-control" name="coverPic" required>
       </div>
       <div class="form-group">
         <label>Pages</label>
@@ -26,14 +25,6 @@
       <div class="form-group">
         <label>Rating</label>
         <input type="number" class="form-control" [(ngModel)]="book.rating" name="rating" required>
-      </div>
-      <div class="form-group">
-        <label>Discount</label>
-        <input type="number" class="form-control" [(ngModel)]="book.discount" name="discount" required>
-      </div>
-      <div class="form-group">
-        <label>Available Quantity</label>
-        <input type="number" class="form-control" [(ngModel)]="book.availableQuantity" name="availableQuantity" required>
       </div>
       <div class="form-group">
         <label>Language</label>
@@ -47,11 +38,12 @@
         <label>Description</label>
         <textarea class="form-control" [(ngModel)]="book.description" name="description" required></textarea>
       </div>
+
       <div class="form-group">
         <label>PDF Version</label>
-        <input type="file" class="form-control" name="pdfVersion">
+        <input type="file" class="form-control" name="pdfVersion" required>
       </div>
       <button type="submit" class="btn btn-primary">Update Book</button>
     </form>
   </div>
-  
+</div>

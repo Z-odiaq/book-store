@@ -11,9 +11,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class CreateBookComponent {
   book: Book = {} as Book;
-  loading = false;
   constructor(private http: HttpClient, public dialogRef: MatDialogRef<CreateBookComponent>) {}
-
+loading : boolean = false;
   createBook() {
     this.loading = true;
     const formData = new FormData();
@@ -28,7 +27,6 @@ export class CreateBookComponent {
   
     formData.append('pages', this.book.pages.toString());
     formData.append('rating', this.book.rating.toString());
-    formData.append('availableQuantity', this.book.availableQuantity.toString());
     formData.append('language', this.book.language);
     formData.append('genre', this.book.genre);
     formData.append('description', this.book.description);
@@ -49,7 +47,7 @@ export class CreateBookComponent {
         const confirmDelete = window.confirm('There was an error creating the book.');
       }
     );
-    this.loading = false;
+    location.reload();
   }
   
 }

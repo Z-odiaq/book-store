@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
   couponPercentage = 0;
   stripeAPIKey: string = '';
 
-  constructor(private http: HttpClient, private cartService: CartService, public userService: UserService, public bookService: BookService,private dialog: MatDialog,) { 
+  constructor(private http: HttpClient, public cartService: CartService, public userService: UserService, public bookService: BookService,private dialog: MatDialog,) { 
     this.loadStripeInstance();
 
   }
@@ -85,7 +85,7 @@ export class CartComponent implements OnInit {
       },
     });
     paymentHandler.open({
-      
+
       name: 'Confirm purchase',
       description: '3 widgets',
       amount: this.cartService.getTotal() * 100,

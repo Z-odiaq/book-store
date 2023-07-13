@@ -174,7 +174,7 @@ getBooks(): Observable<Book[]> {
     this.updateDisplayedBooks();
   }
   addToFavorites(Id: string) {
-    fetch('http://localhost:3000/api/users/favorites', {
+    fetch('http://localhost:3000/api/books/favorites', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -184,8 +184,6 @@ getBooks(): Observable<Book[]> {
       .then((res) => {
         if (res.status === 200) {
           //check if book is already in favorites of user
-          console.log('like addedxsdzd', this.userService.user.favorites);
-
           if (!this.userService.user.favorites.includes(Id)) {
             this.userService.user.favorites.push(Id);
             this.userService.favoriteBadgeCountSubject.next(this.userService.user.favorites.length);

@@ -1,7 +1,9 @@
 <div class="container">
   <div class="search-bar ">
     <h2>Manage Books</h2>
+    <hr>
     <button class="btn btn-primary mb-3" (click)="createBook()">Create New Book</button>
+
   </div>
   <div class="row">
 
@@ -11,13 +13,10 @@
           <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm">
           <button (click)="search()" class="btn btn-primary"><i class="fas fa-search"></i></button>
           <button (click)="searchClear()" class="btn btn-primary"><i class="fas fa-trash"></i></button>
-
         </div>
         <hr>
-
         <div class="filters-sort">
-
-          <select class="form-control" [(ngModel)]="selectedRating" >
+          <select class="form-control" [(ngModel)]="selectedRating">
             <option value="">All Ratings</option>
             <option value="5">5 Stars</option>
             <option value="4">4 Stars</option>
@@ -26,8 +25,7 @@
             <option value="1">1 Star</option>
             <!-- Add more rating options -->
           </select>
-
-          <select class="form-control" [(ngModel)]="selectedPriceRange" >
+          <select class="form-control" [(ngModel)]="selectedPriceRange">
             <option value="">All Prices</option>
             <option value="0-10">$0 - $10</option>
             <option value="10-25">$10 - $25</option>
@@ -35,9 +33,7 @@
             <option value="50+">$50+</option>
             <!-- Add more price options -->
           </select>
-
-
-          <select class="form-control" [(ngModel)]="selectedSort" (change)="sortBooks()" >
+          <select class="form-control" [(ngModel)]="selectedSort" (change)="sortBooks()">
             <option value="">Sort by Title</option>
             <option value="title-asc">Title (A-Z)</option>
             <option value="title-desc">Title (Z-A)</option>
@@ -53,109 +49,102 @@
             <option value="author-desc">Author (Z-A)</option>
             <!-- Add more sorting options -->
           </select>
-
           <button (click)="applyFilter()" class="btn btn-secondary">Filter</button>
-
-        
-
-
+        </div>
       </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Genre</th>
+            <th>Rating</th>
+            <th>Pages</th>
+            <th>Cover</th>
+            <th>Sold</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of filteredBooks">
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.price }}</td>
+            <td>{{ book.genre }}</td>
+            <td>{{ book.rating }}</td>
+            <td>{{ book.pages }}</td>
+            <td><img [src]="book.cover" [alt]="" style="width: 100px; height: 100px; object-fit: cover;"></td>
+            <td>{{ book.sold }}</td>
+
+            <td class="action-buttons">
+              <button class="btn btn-primary btn-sm" (click)="viewBook(book)"><i class="fa fa-eye"></i></button>
+              <button class="btn btn-warning btn-sm" (click)="editBook(book)"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-danger btn-sm" (click)="deleteBook(book)"><i class="fa fa-trash"></i></button>
+              <a href="{{ book.PDFLink }}" class="btn btn-success btn-sm" download><i class="fa fa-download"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Genre</th>
-          <th>Rating</th>
-          <th>Pages</th>
-          <th>Cover</th>
-          <th>Sold</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let book of filteredBooks">
-          <td>{{ book.title }}</td>
-          <td>{{ book.author }}</td>
-          <td>{{ book.price }}</td>
-          <td>{{ book.availableQuantity }}</td>
-          <td>{{ book.genre }}</td>
-          <td>{{ book.rating }}</td>
-          <td>{{ book.pages }}</td>
-           <td><img [src]="book.cover" [alt]="" style="width: 100px; height: 100px; object-fit: cover;"></td>
-          <td>{{ book.sold }}</td>
-
-          <td class="action-buttons">
-            <button class="btn btn-primary btn-sm" (click)="viewBook(book)"><i class="fa fa-eye"></i></button>
-            <button class="btn btn-warning btn-sm" (click)="editBook(book)"><i class="fa fa-edit"></i></button>
-            <button class="btn btn-danger btn-sm" (click)="deleteBook(book)"><i class="fa fa-trash"></i></button>
-            <a href="{{ book.PDFLink }}" class="btn btn-success btn-sm" download><i class="fa fa-download"></i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="col-md-3">
-    <div class="row">
-      <div class="col-sm-6 col-md-12 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Total Books</h5>
-            <p class="card-text">{{ totalBooks }}</p>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-sm-6 col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Total Books</h5>
+              <p class="card-text">{{ totalBooks }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-sm-6 col-md-12 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Books Sold</h5>
-            <p class="card-text">{{ booksSold }}</p>
+        <div class="col-sm-6 col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Books Sold</h5>
+              <p class="card-text">{{ booksSold }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-sm-6 col-md-12 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Low Quantity Books</h5>
-            <p class="card-text">{{ lowQuantityBooks }}</p>
+        <div class="col-sm-6 col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Low Quantity Books</h5>
+              <p class="card-text">{{ lowQuantityBooks }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-sm-6 col-md-12 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Books by Genre</h5>
-            <button class="btn btn-debug" (click)="filterByGenre('')">
-              All
-              <span class="badge badge-primary badge-pill">{{ bookGenres.length }}</span>
-            </button>
-            <ul class="list-group">
-              <div class="lItem justify-content-between align-items-center" *ngFor="let genre of bookGenres">
-                <button class="btn btn-debug" (click)="filterByGenre(genre.name)">
-                  {{ genre.name }}
-                  <span class="badge badge-primary badge-pill">{{ genre.count }}</span>
-                </button>
-              </div>
-            </ul>
+        <div class="col-sm-6 col-md-12 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Books by Genre</h5>
+              <button class="btn btn-debug" (click)="filterByGenre('')">
+                All
+                <span class="badge badge-primary badge-pill">{{ bookGenres.length }}</span>
+              </button>
+              <ul class="list-group">
+                <div class="lItem justify-content-between align-items-center" *ngFor="let genre of bookGenres">
+                  <button class="btn btn-debug" (click)="filterByGenre(genre.name)">
+                    {{ genre.name }}
+                    <span class="badge badge-primary badge-pill">{{ genre.count }}</span>
+                  </button>
+                </div>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<!-- CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-<!-- JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
