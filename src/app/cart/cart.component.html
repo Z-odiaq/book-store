@@ -25,7 +25,7 @@
                   <tr *ngFor="let item of cartItems">
                     <td>
                       <div>
-                        <img [src]="item.cover" alt="Product Image">
+                        <img class="book-cover" [src]="item.cover" alt="Product Image">
                       </div>
                     </td>
                     <td class="desc">
@@ -73,8 +73,8 @@
           <hr>
           <div  *ngIf="this.userService.token" class="ibox-title">
             <h3>Books From Your Favorites</h3>
-            <div class="scrolling-wrapper">
-              <div class="book-card" *ngFor="let book of this.bookService.favorites">
+            <div class="scrolling-wrapper row">
+              <div class="book-card" *ngFor="let book of this.favorites">
                 <div class="book-container">
                   <img [src]="book.cover" alt="Book Cover" class="book-cover">
                 </div>

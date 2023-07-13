@@ -22,6 +22,44 @@ h3 {
 .favorite-button.active {
   color: red;
 }
+.scrolling-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: gray lightgray;
+}
+
+.scrolling-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrolling-wrapper::-webkit-scrollbar-track {
+  background-color: lightgray;
+}
+
+.scrolling-wrapper::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 4px;
+}
+
+.book-cover {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+.book-card {
+  width: 250px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .favorite-button {
   bottom: 10px;
   left: 10px;

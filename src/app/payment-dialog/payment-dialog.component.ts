@@ -28,7 +28,7 @@ export class PaymentDialogComponent implements OnInit {
       this.loading = false; // Hide the loading indicator after 3s
     }, 3000);
     //make api call to process payment
-    fetch('http://127.0.0.1:3000/api/orders', {
+    fetch('http://192.168.1.103:3000/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

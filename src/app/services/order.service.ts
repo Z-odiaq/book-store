@@ -7,7 +7,7 @@ import { Order } from '../models/order';
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:3000/api/orders'; // Update with your API URL
+  private apiUrl = 'http://192.168.1.103:3000/api/orders'; // Update with your API URL
 
   constructor(private http: HttpClient) {}
 

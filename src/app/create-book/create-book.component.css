@@ -1,25 +1,42 @@
 
+
+.edit-book-form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+}
+
+textarea {
+  height: 150px;
+}
+
 .container {
-    margin-top: 20px;
-    height:800px;
-    overflow-y: scroll;
-  }
+  overflow: auto;
+  max-height: 400px; /* Set the desired max height for the container */
+}
 
+.form-container {
+  display: flex;
+}
 
-  .create-book-form {
-    max-width: 500px;
-    margin: auto;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  textarea {
-    height: 150px;
-  }
-  
+.form-column {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.create-book-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: 100%;
+}

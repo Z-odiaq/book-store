@@ -22,14 +22,14 @@ export class CartService {
     return this.cartItems;
   }
   getTotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return this.cartItems.reduce((total, item) => total + item.price , 0);
   }
   addToCart(book: Book): void {
     const foundBook = this.cartItems.find((item) => item._id === book._id);
     if (foundBook) {
       return;
     } else {
-      const bookCopy: Book = { ...book, quantity: 1 };
+      const bookCopy: Book = { ...book  };
       this.cartItems.push(bookCopy);
     }
     this.updateCartBadgeCount();
@@ -59,7 +59,7 @@ export class CartService {
   }
 
   updateCartBadgeCount(): void {
-    const count = this.cartItems.reduce((total, item) => total + item.quantity, 0);
+    const count = this.cartItems.length;
     this.cartBadgeCountSubject.next(count);
     this.saveCart();
   }

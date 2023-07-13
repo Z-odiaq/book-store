@@ -1,53 +1,47 @@
 <mat-toolbar color="primary" class="fixed-toolbar">
-  <mat-toolbar-row>
-    <span class="app-title">Book Store</span>
-    <div *ngIf="!this.userService.token">
-        <form appearance="outline">
-          <div class="form-group">
-            <div class="flex-column">
-              <input placeholder="Email" matInput [(ngModel)]="userService.email" name="email" type="email" required>
-
-            </div>
-            <input placeholder="Password" matInput [(ngModel)]="this.userService.password" name="password" type="password"
+  <mat-toolbar-row class="Toolbar">
+    <div style="display: flex;">
+      <span class="app-title">Book Store</span>
+      <form style="display: flex;" *ngIf="!this.userService.token" appearance="outline">
+        <div class="flex-row">
+          <input placeholder="Email" matInput [(ngModel)]="userService.email" name="email" type="email" required>
+          <input placeholder="Password" matInput [(ngModel)]="this.userService.password" name="password" type="password"
             required>
-            <button mat-raised-button color="secondary" (click)="this.userService.login()">Login</button>
-          </div>
-        </form>
-      
-
+          <button mat-raised-button color="secondary" (click)="this.userService.login()">Login</button>
+        </div>
+      </form>
+      <label *ngIf="this.userService.token">Welcome {{this.userService.user.firstname}}</label>
     </div>
-    <div *ngIf="this.userService.token">
-      <label>Welcome {{this.userService.user.firstname}}</label>
-    </div>
-
-    <span class="spacer"></span>
-    <button mat-button routerLink="/books">
-      <i class="material-icons">book</i>
-      <span>Books</span>
-    </button>
-    <button *ngIf="this.userService.admin" mat-button routerLink="/manage-books">
-      <i class="material-icons"><i class="fas fa-books    "></i></i>
-      <span>Manage Books</span>
-    </button>
-    <div *ngIf="this.userService.token">
-      <button mat-button routerLink="/favorites">
-        <i class="material-icons">favorite</i>
-        <span>Favorites</span>
-        <span class="cart-badge">{{ FavoritesBadgeCount }}</span>
+    <div style="display: flex;">
+      <span class="spacer"></span>
+      <button mat-button routerLink="/books">
+        <i class="material-icons">book</i>
+        <span>Books</span>
       </button>
-      <button mat-button routerLink="/purchased">
-        <i class="material-icons">shopping_cart</i>
-        <span>Purchased</span>
+      <button *ngIf="this.userService.admin" mat-button routerLink="/manage-books">
+        <i class="material-icons"><i class="fas fa-books    "></i></i>
+        <span>Manage Books</span>
       </button>
-      <button mat-button routerLink="/orders">
-        <i class="material-icons">receipt</i>
-        <span>Orders</span>
-      </button>
-      <button mat-button routerLink="/cart">
-        <i class="material-icons">shopping_cart</i>
-        <span>Cart</span>
-        <span class="cart-badge">{{ cartBadgeCount }}</span>
-      </button>
+      <div *ngIf="this.userService.token">
+        <button mat-button routerLink="/favorites">
+          <i class="material-icons">favorite</i>
+          <span>Favorites</span>
+          <span class="cart-badge">{{ FavoritesBadgeCount }}</span>
+        </button>
+        <button mat-button routerLink="/purchased">
+          <i class="material-icons">shopping_cart</i>
+          <span>Purchased</span>
+        </button>
+        <button mat-button routerLink="/orders">
+          <i class="material-icons">receipt</i>
+          <span>Orders</span>
+        </button>
+        <button mat-button routerLink="/cart">
+          <i class="material-icons">shopping_cart</i>
+          <span>Cart</span>
+          <span class="cart-badge">{{ cartBadgeCount }}</span>
+        </button>
+      </div>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

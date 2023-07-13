@@ -1,1 +1,57 @@
-<p>purchased works!</p>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Purchased Books</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Purchased Books</h1>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Cover</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Description</th>
+                            <th>Read</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let book of books">
+                            <td>
+                                <img [src]="book.cover" alt="{{ book.title }} Cover" class="book-cover">
+                            </td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.price }}</td>
+                            <td>{{ book.rating }}</td>
+                            <td>{{ book.description }}</td>
+                            <td>
+                                <button (click)="loadPDF(book.PDFLink)">Read</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div (click)="loadPDF('')" *ngIf="CurrPDFLink" class="pdf-viewer">
+            <p class="pdf-content">
+                <object [data]="getSafeUrl(CurrPDFLink)" type="application/pdf" width="100%" height="100%;"></object>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

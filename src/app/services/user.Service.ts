@@ -27,7 +27,7 @@ export class UserService {
         if (!token) {
             return;
         }
-        fetch('http://localhost:3000/api/users/me', {
+        fetch('http://192.168.1.103:3000/api/users/me', {
             headers: {
                 token: token,
             },
@@ -44,7 +44,7 @@ export class UserService {
 
 
     login() {
-        fetch('http://localhost:3000/api/login', {
+        fetch('http://192.168.1.103:3000/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

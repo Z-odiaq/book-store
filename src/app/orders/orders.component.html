@@ -1,17 +1,34 @@
+<div class="container">
+  <h1>Processed Orders</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Total Amount</th>
+        <th>Coupon</th>
+        <th>Status</th>
+        <th>Email</th>
+        <th>Books</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.number }}</td>
+        <td>{{ order.total | currency }}</td>
+        <td>{{ order.couponCode?.code }}</td>
 
-<div class="orders">
-    <h2>Orders</h2>
-    <div class="search-bar">
-        <input type="text" placeholder="Search orders" [(ngModel)]="searchTerm" (input)="searchOrders()" />
-        <select [(ngModel)]="selectedField">
-          <option *ngFor="let option of fieldOptions" [value]="option">{{ option }}</option>
-        </select>
-      </div>
-      
-    <div class="order-list">
-      <div *ngFor="let order of filteredOrders">
-        <!-- Display the order details here -->
-      </div>
-    </div>
-  </div>
-  
+        <td>{{ order.status }}</td>
+        <td>{{ order.email }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let book of order.books">
+              {{ book.title }} by {{ book.author }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

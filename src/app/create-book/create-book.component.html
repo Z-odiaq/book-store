@@ -1,51 +1,55 @@
 <div class="container">
   <h2>Create Book</h2>
+  <div class="form-container">
+    <form #createForm="ngForm" (submit)="createBook()" class="create-book-form" enctype="multipart/form-data">
+      <div class="form-column">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" class="form-control" [(ngModel)]="book.title" name="title" required>
+        </div>
+        <div class="form-group">
+          <label>Author</label>
+          <input type="text" class="form-control" [(ngModel)]="book.author" name="author" required>
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input type="number" class="form-control" [(ngModel)]="book.price" name="price" required>
+        </div>
 
+      </div>
+      <div class="form-column">
+        <div class="form-group">
+          <label>Cover</label>
+          <input type="file" class="form-control" name="coverPic" required>
+        </div>
+        <div class="form-group">
+          <label>Pages</label>
+          <input type="number" class="form-control" [(ngModel)]="book.pages" name="pages" required>
+        </div>
+        <div class="form-group">
+          <label>Rating</label>
+          <input type="number" class="form-control" [(ngModel)]="book.rating" name="rating" required>
+        </div>
 
-<form #createForm="ngForm" (submit)="createBook()" class="create-book-form" enctype="multipart/form-data">
-  <div class="form-group">
-    <label>Title</label>
-    <input type="text" class="form-control" [(ngModel)]="book.title" name="title" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" [(ngModel)]="book.description" name="description" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Language</label>
+        <input type="text" class="form-control" [(ngModel)]="book.language" name="language" required>
+      </div>
+      <div class="form-group">
+        <label>Genre</label>
+        <input type="text" class="form-control" [(ngModel)]="book.genre" name="genre" required>
+      </div>
+      <div class="form-group">
+        <label>PDF Version</label>
+        <input type="file" class="form-control" name="pdfVersion" required>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Create Book</button>
+    </form>
   </div>
-  <div class="form-group">
-    <label>Author</label>
-    <input type="text" class="form-control" [(ngModel)]="book.author" name="author" required>
-  </div>
-  <div class="form-group">
-    <label>Price</label>
-    <input type="number" class="form-control" [(ngModel)]="book.price" name="price" required>
-  </div>
-  <div class="form-group">
-    <label>Cover</label>
-    <input type="file" class="form-control" name="coverPic" required>
-  </div>
-  <div class="form-group">
-    <label>Pages</label>
-    <input type="number" class="form-control" [(ngModel)]="book.pages" name="pages" required>
-  </div>
-  <div class="form-group">
-    <label>Rating</label>
-    <input type="number" class="form-control" [(ngModel)]="book.rating" name="rating" required>
-  </div>
-
-
-  <div class="form-group">
-    <label>Language</label>
-    <input type="text" class="form-control" [(ngModel)]="book.language" name="language" required>
-  </div>
-  <div class="form-group">
-    <label>Genre</label>
-    <input type="text" class="form-control" [(ngModel)]="book.genre" name="genre" required>
-  </div>
-  <div class="form-group">
-    <label>Description</label>
-    <textarea class="form-control" [(ngModel)]="book.description" name="description" required></textarea>
-  </div>
-
-  <div class="form-group">
-    <label>PDF Version</label>
-    <input type="file" class="form-control" name="pdfVersion" required>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Create Book</button>
-</form>
 </div>
