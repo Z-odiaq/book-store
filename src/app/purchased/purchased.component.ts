@@ -19,7 +19,7 @@ export class PurchasedComponent implements OnInit{
   }
 
   fetchBooks(): void {
-    this.http.get<any[]>('http://192.168.1.103:3000/api/books/purchased/'+ this.userService.user._id ).subscribe(
+    this.http.get<any[]>('http://127.0.0.1:3000/api/books/purchased/'+ this.userService.user._id ).subscribe(
       (response) => {
         response.forEach((book) => {
           this.books.push(book);

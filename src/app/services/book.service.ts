@@ -43,7 +43,7 @@ export class BookService {
 
 
   fetchBooks() {
-    this.http.get<Book[]>('http://192.168.1.103:3000/api/books').subscribe(
+    this.http.get<Book[]>('http://127.0.0.1:3000/api/books').subscribe(
       (response) => {
         //log length of response
         //console.log('Number of books:', response.length);
@@ -70,7 +70,7 @@ export class BookService {
     );
   }
 getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>('http://192.168.1.103:3000/api/books');
+    return this.http.get<Book[]>('http://127.0.0.1:3000/api/books');
   }
 
   calculateTotalPages() {
@@ -100,7 +100,7 @@ getBooks(): Observable<Book[]> {
   }
   deleteBook(bookId: string): Promise<boolean>{
 
-     return fetch('http://192.168.1.103:3000/api/books/' + bookId, {
+     return fetch('http://127.0.0.1:3000/api/books/' + bookId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -127,13 +127,13 @@ getBooks(): Observable<Book[]> {
     throw new Error('Method not implemented.');
   }
   createBook(book: Book) {
-    return this.http.post<Book>('http://192.168.1.103:3000/api/books', book);
+    return this.http.post<Book>('http://127.0.0.1:3000/api/books', book);
   }
   updateBook(book: Book) {
-    return this.http.put<Book>('http://192.168.1.103:3000/api/books/' + book._id, book);
+    return this.http.put<Book>('http://127.0.0.1:3000/api/books/' + book._id, book);
   }
   getBookById() {
-    return this.http.get<Book>('http://192.168.1.103:3000/api/books/' + this.bookToView._id);
+    return this.http.get<Book>('http://127.0.0.1:3000/api/books/' + this.bookToView._id);
   }
   applyFilters() {
 
@@ -159,22 +159,12 @@ getBooks(): Observable<Book[]> {
       filteredBooks = filteredBooks.filter(book => book.rating >= parseInt(this.selectedRating));
     }
 
-    // Sort by selected sort option
-    // filteredBooks.sort((a, b) => {
-    //   if (a[this.selectedSort] < b[this.selectedSort]) {
-    //     return this.selectedOrder === 'asc' ? -1 : 1;
-    //   }
-    //   if (a[this.selectedSort] > b[this.selectedSort]) {
-    //     return this.selectedOrder === 'asc' ? 1 : -1;
-    //   }
-    //   return 0;
-    // });
 
     this.filteredBooks = filteredBooks;
     this.updateDisplayedBooks();
   }
   addToFavorites(Id: string) {
-    fetch('http://192.168.1.103:3000/api/books/favorites', {
+    fetch('http://127.0.0.1:3000/api/books/favorites', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

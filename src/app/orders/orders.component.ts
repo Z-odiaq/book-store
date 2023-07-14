@@ -17,7 +17,7 @@ export class OrdersComponent implements OnInit {
   }
 
   fetchOrders(): void {
-    this.http.get<any[]>('http://192.168.1.103:3000/api/orders/user/'+ this.userService.user._id ).subscribe(
+    this.http.get<any[]>('http://127.0.0.1:3000/api/orders/user/'+ this.userService.user._id ).subscribe(
       (response) => {
         this.orders = response;
       },

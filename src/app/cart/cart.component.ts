@@ -3,7 +3,6 @@ import { CartService } from '../services/CartService'; // Replace with the actua
 import { Book } from '../models/book'; // Replace with your actual cart item model
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { UserService } from '../services/user.Service';
 import { BookService } from '../services/book.service';
 import { environment } from '../../environments/environment';
@@ -103,7 +102,7 @@ export class CartComponent implements OnInit {
     this.cartService.getCartItems().forEach((book) => {
       books.push(book._id);
     });
-    fetch('http://192.168.1.103:3000/api/orders', {
+    fetch('http://127.0.0.1:3000/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -132,7 +131,7 @@ export class CartComponent implements OnInit {
 
   //applyCoupon
   applyCoupon(coupon: string) {
-    fetch(`http://192.168.1.103:3000/api/coupons/code/${coupon}`, {
+    fetch(`http://127.0.0.1:3000/api/coupons/code/${coupon}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -175,7 +174,7 @@ export class CartComponent implements OnInit {
 
   //get favorites books
   fetchfavorites() {
-    this.http.get<Book[]>('http://192.168.1.103:3000/api/books/favorites').subscribe(
+    this.http.get<Book[]>('http://127.0.0.1:3000/api/books/favorites').subscribe(
       (response) => {
         this.favorites = response;
       },
@@ -188,7 +187,7 @@ export class CartComponent implements OnInit {
 
   //get latest books
   fetchLatests() {
-    this.http.get<Book[]>('http://192.168.1.103:3000/api/books/latest').subscribe(
+    this.http.get<Book[]>('http://127.0.0.1:3000/api/books/latest').subscribe(
       (response) => {
         this.latest = response;
       },
@@ -205,7 +204,7 @@ export class CartComponent implements OnInit {
   }
   //get top selling books
   fetchTopBooks() {
-    this.http.get<Book[]>('http://192.168.1.103:3000/api/books/top-selling').subscribe(
+    this.http.get<Book[]>('http://127.0.0.1:3000/api/books/top-selling').subscribe(
       (response) => {
         this.topSellingBooks = response;
       },
@@ -217,7 +216,7 @@ export class CartComponent implements OnInit {
 
   //get top rated books
   fetchTopRated() {
-    this.http.get<Book[]>('http://192.168.1.103:3000/api/books/top-rated').subscribe(
+    this.http.get<Book[]>('http://127.0.0.1:3000/api/books/top-rated').subscribe(
       (response) => {
         this.topRatedBooks = response;
       },
@@ -260,7 +259,7 @@ export class CartComponent implements OnInit {
 
   loadFavoriteBooks() {
     // fetch favorite books from /books/favorite/:userId API
-    fetch(`http://192.168.1.103:3000/api/books/favorite/${this.userService.user._id}`)
+    fetch(`http://127.0.0.1:3000/api/books/favorite/${this.userService.user._id}`)
 
       .then(response => { 
         console.log(response);

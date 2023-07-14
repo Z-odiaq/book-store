@@ -14,8 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { OrdersComponent } from './orders/orders.component';
 import { FormsModule } from '@angular/forms';
-import { OrderService } from './services/order.service';
-import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
 import { UserService } from './services/user.Service';
@@ -33,7 +31,6 @@ import { MatInputModule } from '@angular/material/input';
     BooksComponent,
     PurchasedComponent,
     OrdersComponent,
-    PaymentDialogComponent,
     ManageBooksComponent,
     ViewBookComponent,
     CreateBookComponent,
@@ -54,7 +51,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatMenuModule,
   ],
-  providers: [OrderService,UserService],
+  providers: [UserService],
   bootstrap: [AppComponent],
 
 })

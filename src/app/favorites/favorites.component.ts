@@ -38,7 +38,7 @@ export class FavoritesComponent implements OnInit {
   loadFavoriteBooks() {
     // fetch favorite books from /books/favorite/:userId API
     this.loading = true;
-    fetch(`http://192.168.1.103:3000/api/books/favorite/${this.userService.user._id}`)
+    fetch(`http://127.0.0.1:3000/api/books/favorite/${this.userService.user._id}`)
 
       .then(response => { 
         console.log(response);

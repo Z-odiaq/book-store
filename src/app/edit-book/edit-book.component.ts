@@ -36,7 +36,7 @@ export class EditBookComponent {
       formData.append('pdfVersion', pdfVersionInput.files[0]);
     }
   
-    this.http.put<any>('http://192.168.1.103:3000/api/books/'+ this.book._id, formData).subscribe(
+    this.http.put<any>('http://127.0.0.1:3000/api/books/'+ this.book._id, formData).subscribe(
       (response) => {
         console.log(response);
         const confirmDelete = window.confirm('The Book Was Successfully created.');
@@ -67,7 +67,7 @@ export class EditBookComponent {
       formData.append('coverPic', coverPicInput.files[0]);
     }
     // Make the API request to update the book
-    this.http.put<any>('http://192.168.1.103:3000/api/books/' + this.book._id, this.book).subscribe(
+    this.http.put<any>('http://127.0.0.1:3000/api/books/' + this.book._id, this.book).subscribe(
       (response) => {
         console.log( "update ", response);
         const confirmDelete = window.confirm('The book was updated created.');
