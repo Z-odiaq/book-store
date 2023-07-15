@@ -4,7 +4,7 @@ import { BooksComponent } from './books/books.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PurchasedComponent } from './purchased/purchased.component';
 import { CartComponent } from './cart/cart.component';
-import { OrdersComponent } from './orders/orders.component'; // Add this line
+import { OrdersComponent } from './favorites/orders/orders.component'; // Add this line
 import { ManageBooksComponent } from './manage-books/manage-books.component';
 
 import { ViewBookComponent } from './view-book/view-book.component';

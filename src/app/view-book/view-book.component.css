@@ -1,59 +1,163 @@
+/* Custom styles for the book details and comments section */
 .book-details {
-    font-family: "Arial", sans-serif;
-    margin: 20px;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .LikesBox {
-    display: flex;
-    align-items: center;
-  }
-  
-  .action-buttons {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .btn {
-    padding: 6px 12px;
-    border-radius: 4px;
-  }
-  
-  .btn-light.filled {
-    color: red;
-  }
-  
-  .likes-count {
-    margin-left: 5px;
-  }
-  
-  .author,
-  .price,
-  .pages,
-  .rating,
-  .discount,
-  .available-quantity,
-  .language,
-  .genre,
-  .description {
-    margin-bottom: 5px;
-    font-size: 16px;
-  }
-  
-  .cover img {
-    max-width: 200px;
-    height: auto;
-  }
-  
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.author {
+  font-weight: bold;
+}
+
+.price {
+  margin-top: 10px;
+}
+
+
+
+.pages,
+.rating,
+.language,
+.genre {
+  margin-top: 10px;
+}
+
+.description {
+  margin-top: 20px;
+  font-size: 14px;
+  overflow: auto;
+  max-height: 150px;
+  max-width: 300px;
+
+}
+
+.comments-section {
+  padding: 20px;
+}
+
+.comments {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.no-comments {
+  font-style: italic;
+  color: #999;
+}
+
+.like-section {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.add-comment {
+  margin-top: 20px;
+  text-align: bottom;
+  width: fit-content;
+  justify-content: flex-end;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+
+.likes-counter {
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+/* Additional styling for Bootstrap classes */
+.row {
+  margin-bottom: 20px;
+}
+.book-cover img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+}
+
+.bi-hand-thumbs-up {
+  margin-right: 5px;
+}
+
+.scrollable {
+  overflow-y: auto;
+}
+
+
+.comments {
+  margin-top: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.comment {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  background-color: #ccc;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.user-info {
+  flex-grow: 1;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.comment-timestamp {
+  color: #777;
+  font-size: 12px;
+}
+
+.comment-text {
+  margin-top: 10px;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon,
+.delete-icon {
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.save-button {
+  margin-top: 10px;
+}

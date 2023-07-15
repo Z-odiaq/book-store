@@ -1,18 +1,80 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
-<div *ngIf="book" class="book-details">
-
-    <div class="author">By {{ book.author }}</div>
-    <div class="price">Price: ${{ book.price }}</div>
-    <div class="cover">
-        <img [src]="book.cover" [alt]="book.title">
+<div *ngIf="book" class="row">
+    <div class="col-lg-6">
+        <div class="book-details">
+            <h2>{{ book.title }}</h2>
+            <div class="author">By {{ book.author }}</div>
+            <div class="price">Price: ${{ book.price }}</div>
+            <div class="book-cover">
+                <img [src]="book.cover" [alt]="book.title">
+            </div>
+            <div class="pages">Pages: {{ book.pages }}</div>
+            <div class="rating">Rating: {{ book.rating }}</div>
+            <div class="language">Language: {{ book.language }}</div>
+            <div class="genre">Genre: {{ book.genre }}</div>
+            <div class="publisher">Description:</div>
+            <div class="description">{{ book.description }}</div>
+        </div>
     </div>
-    <div class="pages">Pages: {{ book.pages }}</div>
-    <div class="rating">Rating: {{ book.rating }}</div>
-    <div class="discount">Discount: {{ book.discount }}%</div>
-    <div class="available-quantity">Available Quantity: {{ book.availableQuantity }}</div>
-    <div class="language">Language: {{ book.language }}</div>
-    <div class="genre">Genre: {{ book.genre }}</div>
-    <div class="description">{{ book.description }}</div>
+    <div class="col-lg-6">
+        <div class="comments-section">
+            <div class="row">
+                <div class="col">
+                    <div class=" d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">Comments</h2>
+                        <div>
+                            <button [disabled]="!userService.user?._id" (click)="toggleLike()" class="btn btn-primary">
+                                <span class="bi bi-hand-thumbs-up"></span>
+                                {{ isLiked ? 'Unlike' : 'Like' }}
+                                <span class="likes-counter">{{ likesCount }}</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="comments" [class.scrollable]="comments.length > 3">
+                        <div *ngIf="comments.length === 0" class="no-comments">No comments</div>
+                        <div *ngFor="let comment of comments" class="comment">
+                            <div class="comment-header">
+                                <div class="user-avatar">{{ comment.user.firstname.charAt(0) }}{{
+                                    comment.user.lastname.charAt(0) }}</div>
+                                <div class="user-info">
+                                    <div class="user-name">{{ comment.user.firstname }} {{ comment.user.lastname }}
+                                    </div>
+                                    <div class="comment-timestamp">{{ comment.createdAt | date:'medium' }}</div>
+                                </div>
+                                <div class="comment-actions" *ngIf="isCurrentUser(comment.user._id)">
+                                    <span class="edit-icon" (click)="editComment(comment)"><i
+                                            class="bi bi-pencil"></i></span>
+                                    <span class="delete-icon" (click)="deleteComment(comment._id)"><i
+                                            class="bi bi-trash"></i></span>
+                                </div>
+                            </div>
+                            <div>
+                                {{ comment.text }}
+                            </div>
+                            <div>
+                                <textarea *ngIf="isCurrentUser(comment.user._id) && comment.editing" type="text"  placeholder= {{comment.text}}
+                                    [(ngModel)]="EditComment" class="form-control"></textarea>
+                            </div>
+                            <div class=" d-flex  align-items-center">
+                            <div class="comment-actions" *ngIf="isCurrentUser(comment.user._id) && comment.editing">
+                                <button class="btn btn-primary save-button" (click)="saveComment(comment)">Save</button>
+                            </div>
+                            <div class="comment-actions" *ngIf="isCurrentUser(comment.user._id) && comment.editing">
+                                <button class="btn btn-danger save-button" (click)="Cancel(comment)">Cancel</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div *ngIf="userService.user?._id" class="comment pt-4">
+                        <textarea type="text" placeholder="Add a comment" [(ngModel)]="newComment"
+                            class="form-control"></textarea>
+                        <button (click)="addComment()" class="pt-2 btn btn-primary ">Add Comment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

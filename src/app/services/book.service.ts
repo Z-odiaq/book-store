@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { Book } from '../models/book';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './user.Service';
@@ -69,9 +69,41 @@ export class BookService {
       }
     );
   }
-getBooks(): Observable<Book[]> {
+  getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>('http://127.0.0.1:3000/api/books');
   }
+  getLikesCount(_id: string): Observable<number> {
+    return this.http.get<Book[]>('http://localhost:3000/api/likes/book/total/' + _id,).pipe(
+      map((response: any) => response.Lenght)
+    );
+  }
+  checkLiked(_id: string): Observable<boolean> {
+    if (!this.userService.user?._id) return of(false)
+    return this.http.get<any>('http://localhost:3000/api/likes/book/' + _id + '/' + this.userService.user?._id)
+      .pipe(
+        map((response: any) => response.liked)
+      );
+  }
+
+
+  toggleLike(_id: string) {
+
+    fetch('http://localhost:3000/api/likes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ bookId: _id, userId: this.userService.user?._id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        return data.liked;
+      });
+
+
+
+  }
+
 
   calculateTotalPages() {
     this.totalPages = Math.ceil(this.filteredBooks.length / this.itemsPerPage);
@@ -98,9 +130,9 @@ getBooks(): Observable<Book[]> {
   clearSearch() {
     this.filteredBooks = this.books;
   }
-  deleteBook(bookId: string): Promise<boolean>{
+  deleteBook(bookId: string): Promise<boolean> {
 
-     return fetch('http://127.0.0.1:3000/api/books/' + bookId, {
+    return fetch('http://127.0.0.1:3000/api/books/' + bookId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -122,7 +154,7 @@ getBooks(): Observable<Book[]> {
 
 
   }
-  
+
   editBook(book: Book) {
     throw new Error('Method not implemented.');
   }
