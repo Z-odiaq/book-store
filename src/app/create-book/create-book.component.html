@@ -5,49 +5,63 @@
       <div class="form-column">
         <div class="form-group">
           <label>Title</label>
-          <input type="text" class="form-control" [(ngModel)]="book.title" name="title" required>
+          <input type="text" class="form-control" [(ngModel)]="book.title" name="title" required minlength="3">
+          <div *ngIf="createForm.controls['title']?.errors?.['required'] && createForm.controls['title'].dirty" class="error-message">Title is required.</div>
+          <div *ngIf="createForm.controls['title']?.errors?.['minlength'] && createForm.controls['title'].dirty" class="error-message">Title should have a minimum length of 3 characters.</div>
         </div>
         <div class="form-group">
           <label>Author</label>
-          <input type="text" class="form-control" [(ngModel)]="book.author" name="author" required>
+          <input type="text" class="form-control" [(ngModel)]="book.author" name="author" required minlength="2" required>
+          <div *ngIf="createForm.controls['author']?.errors?.['required'] && createForm.controls['author'].dirty" class="error-message">Author is required.</div>
+          <div *ngIf="createForm.controls['author']?.errors?.['minlength'] && createForm.controls['author'].dirty" class="error-message">Author should have a minimum length of 2 characters.</div>
+
         </div>
         <div class="form-group">
           <label>Price</label>
           <input type="number" class="form-control" [(ngModel)]="book.price" name="price" required>
+          <div *ngIf="createForm.controls['price']?.errors?.['required'] && createForm.controls['price'].dirty" class="error-message">Price is required.</div>
         </div>
-
       </div>
       <div class="form-column">
         <div class="form-group">
           <label>Cover</label>
           <input type="file" class="form-control" name="coverPic" required>
+          <div *ngIf="createForm.controls['coverPic']?.errors?.['required'] && createForm.controls['coverPic'].dirty" class="error-message">Cover is required.</div>
         </div>
         <div class="form-group">
           <label>Pages</label>
           <input type="number" class="form-control" [(ngModel)]="book.pages" name="pages" required>
+          <div *ngIf="createForm.controls['pages']?.errors?.['required'] && createForm.controls['pages'].dirty" class="error-message">Pages is required.</div>
         </div>
         <div class="form-group">
           <label>Rating</label>
-          <input type="number" class="form-control" [(ngModel)]="book.rating" name="rating" required>
+          <input type="number" class="form-control" [(ngModel)]="book.rating" name="rating" required min="0" max="5">
+          <div *ngIf="createForm.controls['rating']?.errors?.['required'] && createForm.controls['rating'].dirty" class="error-message">Rating is required.</div>
+          <div *ngIf="createForm.controls['rating']?.errors?.['min'] && createForm.controls['rating'].dirty" class="error-message">Rating should be at least 0.</div>
+          <div *ngIf="createForm.controls['rating']?.errors?.['max'] && createForm.controls['rating'].dirty" class="error-message">Rating should be at most 5.</div>
         </div>
-
       </div>
-      
       <div class="form-group">
         <label>Description</label>
-        <textarea class="form-control" [(ngModel)]="book.description" name="description" required></textarea>
+        <textarea class="form-control" [(ngModel)]="book.description" name="description" required minlength="20"></textarea>
+        <div *ngIf="createForm.controls['description']?.errors?.['required'] && createForm.controls['description'].dirty" class="error-message">Description is required.</div>
+        <div *ngIf="createForm.controls['description']?.errors?.['minlength'] && createForm.controls['description'].dirty" class="error-message">Description should have a minimum length of 20 characters.</div>
       </div>
       <div class="form-group">
         <label>Language</label>
         <input type="text" class="form-control" [(ngModel)]="book.language" name="language" required>
+        <div *ngIf="createForm.controls['language']?.errors?.['required'] && createForm.controls['language'].dirty" class="error-message">Language is required.</div>
       </div>
       <div class="form-group">
         <label>Genre</label>
-        <input type="text" class="form-control" [(ngModel)]="book.genre" name="genre" required>
+        <input type="text" class="form-control" [(ngModel)]="book.genre" name="genre" required minlength="3">
+        <div *ngIf="createForm.controls['genre']?.errors?.['required'] && createForm.controls['genre'].dirty" class="error-message">Genre is required.</div>
+        <div *ngIf="createForm.controls['genre']?.errors?.['minlength'] && createForm.controls['genre'].dirty" class="error-message">Genre should have a minimum length of 3 characters.</div>
       </div>
       <div class="form-group">
         <label>PDF Version</label>
         <input type="file" class="form-control" name="pdfVersion" required>
+        <div *ngIf="createForm.controls['pdfVersion']?.errors?.['required'] && createForm.controls['pdfVersion'].dirty" class="error-message">PDF Version is required.</div>
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Create Book</button>
     </form>

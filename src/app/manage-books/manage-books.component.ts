@@ -5,6 +5,7 @@ import { ViewBookComponent } from '../view-book/view-book.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EditBookComponent } from '../edit-book/edit-book.component';
 import { CreateBookComponent } from '../create-book/create-book.component';
+import { UserService } from '../services/user.Service';
 
 @Component({
   selector: 'app-manage-books',
@@ -24,7 +25,7 @@ export class ManageBooksComponent implements OnInit {
   selectedSort: string = "";
   selectedRating: string = "";
   searchTerm: string = "";
-  constructor(private bookService: BookService, private dialog: MatDialog) { }
+  constructor(private bookService: BookService, private dialog: MatDialog,private userService: UserService) { }
 
   viewBook(book: Book): void {
     this.bookService.bookToView = book;
@@ -241,6 +242,7 @@ export class ManageBooksComponent implements OnInit {
           (data: boolean) => {
             if (data === true) {
               this.filteredBooks.splice(index, 1);
+              this.userService.favoriteBadgeCountSubject.next(this.userService.favoriteBadgeCountSubject.value - 1);
               this.fetchBooks();
             } else {
               const confirmDelete = window.confirm('There was an error deleteing this book.');

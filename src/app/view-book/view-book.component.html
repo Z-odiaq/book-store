@@ -25,7 +25,7 @@
                     <div class=" d-flex justify-content-between align-items-center">
                         <h2 class="mb-0">Comments</h2>
                         <div>
-                            <button [disabled]="!userService.user?._id" (click)="toggleLike()" class="btn btn-primary">
+                            <button [disabled]="!userService.user._id" (click)="toggleLike()" class="btn btn-primary">
                                 <span class="bi bi-hand-thumbs-up"></span>
                                 {{ isLiked ? 'Unlike' : 'Like' }}
                                 <span class="likes-counter">{{ likesCount }}</span>

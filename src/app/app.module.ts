@@ -22,6 +22,8 @@ import { CreateBookComponent } from './create-book/create-book.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
+import { CreateUserComponent } from './create-user/create-user.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { MatInputModule } from '@angular/material/input';
     ViewBookComponent,
     CreateBookComponent,
     EditBookComponent,
+    CreateUserComponent,
     
     
   ],
@@ -50,6 +53,7 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatInputModule,
     MatMenuModule,
+    MatButtonToggleModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent],

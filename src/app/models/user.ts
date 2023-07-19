@@ -8,10 +8,7 @@ export interface User {
     email: String;
     likedBooks: String[];
     purchased: String[];
-    cart: [{
-        book: {},
-        quantity: {}
-    }];
+    role : String;
     favorites: String[];
     orders: String[];
     createdAt: Date;

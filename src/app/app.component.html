@@ -1,32 +1,69 @@
-<mat-toolbar color="primary" class="fixed-toolbar">
+<mat-toolbar [color]="userService.user.role === 'admin' ? 'warn' : 'primary'" class="fixed-toolbar">
   <mat-toolbar-row class="Toolbar">
     <div style="display: flex;">
       <span class="app-title">Book Store</span>
-      <form style="display: flex;" *ngIf="!this.userService.token" appearance="outline">
+      <label *ngIf="userService.user.role === 'admin'">Welcome to the administrative panel</label>
+      <form style="display: flex;" *ngIf="!userService.token" appearance="outline">
         <div class="flex-row">
           <input placeholder="Email" matInput [(ngModel)]="userService.email" name="email" type="email" required>
-          <input placeholder="Password" matInput [(ngModel)]="this.userService.password" name="password" type="password"
-            required>
-          <button mat-raised-button color="secondary" (click)="this.userService.login()">Login</button>
+          <input placeholder="Password" matInput [(ngModel)]="userService.password" name="password" type="password" required>
+          <button mat-raised-button color="secondary" (click)="userService.login()">Login</button>
+          <button mat-raised-button color="secondary" (click)="openRegister()">Register</button>
         </div>
       </form>
-      <label *ngIf="this.userService.token">Welcome {{this.userService.user.firstname}}</label>
+      <label *ngIf="userService.token && userService.user.role != 'admin'">Welcome {{userService.user.firstname}}</label>
     </div>
     <div style="display: flex;">
       <span class="spacer"></span>
-      <button mat-button routerLink="/books">
-        <i class="material-icons">book</i>
-        <span>Books</span>
-      </button>
-      <button *ngIf="this.userService.admin" mat-button routerLink="/manage-books">
-        <i class="material-icons"><i class="fas fa-books    "></i></i>
-        <span>Manage Books</span>
-      </button>
-      <div *ngIf="this.userService.token">
+
+      <div *ngIf="userService.user.role === 'admin'">
+        <mat-button-toggle-group>
+
+        <mat-button-toggle>
+          <button mat-button routerLink="/books">
+            <i class="material-icons"><i class="fas fa-books"></i></i>
+            <span>Books</span>
+          </button>
+        </mat-button-toggle>
+          <mat-button-toggle>
+            <button mat-button routerLink="/manage-books">
+              <i class="material-icons"><i class="fas fa-books"></i></i>
+              <span>Manage Books</span>
+            </button>
+          </mat-button-toggle>
+          <mat-button-toggle>
+            <button mat-button routerLink="/favorites">
+              <i class="material-icons">favorite</i>
+              <span>Favorites</span>
+              <span class="cart-badge">{{FavoritesBadgeCount}}</span>
+            </button>
+          </mat-button-toggle>
+          <mat-button-toggle>
+            <button mat-button routerLink="/purchased">
+              <i class="material-icons">shopping_cart</i>
+              <span>Purchased</span>
+            </button>
+          </mat-button-toggle>
+          <mat-button-toggle>
+            <button mat-button routerLink="/orders">
+              <i class="material-icons">receipt</i>
+              <span>Orders</span>
+            </button>
+          </mat-button-toggle>
+          <mat-button-toggle>
+            <button mat-button routerLink="/cart">
+              <i class="material-icons">shopping_cart</i>
+              <span>Cart</span>
+              <span class="cart-badge">{{cartBadgeCount}}</span>
+            </button>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div *ngIf="userService.token && userService.user.role != 'admin'">
         <button mat-button routerLink="/favorites">
           <i class="material-icons">favorite</i>
           <span>Favorites</span>
-          <span class="cart-badge">{{ FavoritesBadgeCount }}</span>
+          <span class="cart-badge">{{FavoritesBadgeCount}}</span>
         </button>
         <button mat-button routerLink="/purchased">
           <i class="material-icons">shopping_cart</i>
@@ -39,7 +76,7 @@
         <button mat-button routerLink="/cart">
           <i class="material-icons">shopping_cart</i>
           <span>Cart</span>
-          <span class="cart-badge">{{ cartBadgeCount }}</span>
+          <span class="cart-badge">{{cartBadgeCount}}</span>
         </button>
       </div>
     </div>

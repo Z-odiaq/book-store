@@ -9,13 +9,17 @@ import { User } from '../models/user';
 })
 
 export class UserService {
+
     user: User = {} as User;
     token: string = '';
     email = '';
     password = '';
-    admin = true;
+    admin : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    firstname = '';
+    lastname = '';
     favoriteBadgeCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-
+    loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    errorMsg = '';
     constructor(private http: HttpClient) { }
 
     onInit() {
@@ -41,7 +45,38 @@ export class UserService {
             });
     }
 
+    registerUser() {
+        this.errorMsg = '';
+        fetch('http://127.0.0.1:3000/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: this.email, password: this.password, firstname: this.firstname, lastname: this.lastname }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.error) {
+                    this.errorMsg = data.error;
+                    return;
+                }
+                localStorage.setItem('token', data.token);
+                this.user = data.user;
+                this.token = data.token;
+                this.favoriteBadgeCountSubject.next(data.user.favorites.length);
+                this.loggedInSubject.next(true);
+                if (data.user.role === 'admin') {
+                    this.admin.next(true);
+                }
+            })
+            .catch((err) => {
+                this.errorMsg = err;
+                console.log(err);
+            })
 
+
+    }
 
     login() {
         fetch('http://127.0.0.1:3000/api/login', {
@@ -54,11 +89,23 @@ export class UserService {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
+                if (data.error) {
+                    const confirmDelete = window.confirm(data.error);
+                    return;
+                }
                 localStorage.setItem('token', data.token);
                 this.user = data.user;
                 this.token = data.token;
                 this.favoriteBadgeCountSubject.next(data.user.favorites.length);
+                this.loggedInSubject.next(true);
+                if (data.user.role === 'admin') {
+                    this.admin.next(true);
 
+                }
+            }).catch((err) => {
+                //show alert error
+                const confirmDelete = window.confirm(err);
+                console.log(err);
             });
     }
 
