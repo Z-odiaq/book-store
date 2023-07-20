@@ -1,0 +1,34 @@
+<div class="container">
+    <h2>Edit Order</h2>
+    <div class="order-details">
+        <h3>Order Details</h3>
+        <h3>Order Details</h3>
+        <p><strong>Order Number:</strong> <input type="text" [(ngModel)]="selectedOrder.number"></p>
+        <p><strong>Email:</strong> <input type="email" [(ngModel)]="selectedOrder.email"></p>
+        <p><strong>Total:</strong> <input type="number" [(ngModel)]="selectedOrder.total"></p>
+        <p><strong>Books:</strong></p>
+        <ul>
+          <li *ngFor="let book of selectedOrder.books">
+            {{ book.title }} 
+            <span class="delete-icon" (click)="removeBook(book._id)">X</span>
+          </li>
+        </ul>
+      </div>
+      <p><strong>Status:</strong></p>
+      <td>
+        <select [(ngModel)]="selectedOrder.status">
+          <option value="confirmed">Confirmed</option>
+          <option value="rejected">Rejected</option>
+          <option value="validated">Validated</option>
+        </select>
+      </td>
+    <button class="btn btn-primary" (click)="update()">Update</button>
+    <!-- Add other action buttons as needed -->
+</div>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

@@ -12,7 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { OrdersComponent } from './favorites/orders/orders.component';
+import { OrdersComponent } from './orders/orders.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
@@ -24,6 +24,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
+import { EditOrdersComponent } from './edit-orders/edit-orders.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     CreateBookComponent,
     EditBookComponent,
     CreateUserComponent,
+    ManageOrdersComponent,
+    EditOrdersComponent,
     
     
   ],

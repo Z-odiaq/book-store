@@ -1,0 +1,33 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    font-family: 'Helvetica', sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .order-details {
+    margin-top: 30px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+  
+  h3 {
+    font-family: 'Helvetica', sans-serif;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-family: 'Helvetica', sans-serif;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  

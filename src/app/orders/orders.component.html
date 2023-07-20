@@ -9,6 +9,7 @@
         <th>Status</th>
         <th>Email</th>
         <th>Books</th>
+        <th>Action</th> <!-- New column for action buttons -->
       </tr>
     </thead>
     <tbody>
@@ -16,7 +17,6 @@
         <td>{{ order.number }}</td>
         <td>{{ order.total | currency }}</td>
         <td>{{ order.couponCode?.code }}</td>
-
         <td>{{ order.status }}</td>
         <td>{{ order.email }}</td>
         <td>
@@ -26,9 +26,16 @@
             </li>
           </ul>
         </td>
+        <td>
+          <!-- Add a "Cancel" button for each order -->
+          <button *ngIf="order.status != 'Cancelled'" class="btn btn-danger" (click)="cancelOrder(order)">Cancel</button>
+          <button *ngIf="order.status === 'Cancelled'" class="btn btn-success" (click)="RevalidateOrder(order)">Reconfirm</button>
+
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

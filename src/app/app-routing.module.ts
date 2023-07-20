@@ -4,10 +4,11 @@ import { BooksComponent } from './books/books.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { PurchasedComponent } from './purchased/purchased.component';
 import { CartComponent } from './cart/cart.component';
-import { OrdersComponent } from './favorites/orders/orders.component'; // Add this line
+import { OrdersComponent } from './orders/orders.component'; // Add this line
 import { ManageBooksComponent } from './manage-books/manage-books.component';
 
 import { ViewBookComponent } from './view-book/view-book.component';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 
 
 
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: '', redirectTo: '/books', pathMatch: 'full' }, // Default route
   { path: 'orders', component: OrdersComponent }, // Add this line
-  { path: 'manage-books', component: ManageBooksComponent }
+  { path: 'manage-books', component: ManageBooksComponent },
+  { path: 'manage-orders', component: ManageOrdersComponent }
 
 ];
 

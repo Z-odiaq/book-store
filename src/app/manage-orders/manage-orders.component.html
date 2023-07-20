@@ -1,0 +1,60 @@
+<div class="container">
+    <h2>Manage Orders</h2>
+    <select [(ngModel)]="statusFilter" (ngModelChange)="filterByStatus(statusFilter)">
+        <option value="">All</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Validated">Validated</option>
+        <option value="Canceled">Canceled</option>
+
+        <!-- Add other status options as needed -->
+      </select>
+      
+      <!-- Add a select dropdown for sorting -->
+      <select [(ngModel)]="sortOption" (ngModelChange)="sortOrders()">
+        <option value="date">Sort by Date</option>
+        <option value="total">Sort by Total</option>
+      </select>
+    <div class="order-list">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Order Number</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>User Email</th>
+            <th>Order Email</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of filteredOrders">
+            <td>{{ order.number }}</td>
+            <td>{{ order.createdAt | date }}</td>
+            <td>{{ order.updatedAt | date }}</td>
+            <td>{{ order.user.email }}</td>
+            <td>{{ order.email }}</td>
+
+            <td>{{ order.total }}</td>
+            <td>{{ order.status }}</td>
+
+            <td>
+              <button class="btn btn-primary" (click)="editOrder(order)">Edit</button>
+              <button class="btn btn-success" (click)="confirmOrder(order)">Confirm</button>
+              <button class="btn btn-danger" (click)="rejectOrder(order)">Reject</button>
+              <button class="btn btn-warning" (click)="cancelOrder(order)">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
