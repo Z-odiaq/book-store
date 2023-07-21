@@ -26,6 +26,9 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 import { EditOrdersComponent } from './edit-orders/edit-orders.component';
+import { ManageCouponComponent } from './manage-coupon/manage-coupon.component';
+import { CreateCouponComponent } from './create-coupon/create-coupon.component';
+import { EditCouponComponent } from './edit-coupon/edit-coupon.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { EditOrdersComponent } from './edit-orders/edit-orders.component';
     CreateUserComponent,
     ManageOrdersComponent,
     EditOrdersComponent,
+    ManageCouponComponent,
+    CreateCouponComponent,
+    EditCouponComponent,
     
     
   ],

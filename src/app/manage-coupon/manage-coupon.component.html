@@ -1,0 +1,41 @@
+<div class="container">
+    <h1>Manage Coupons</h1>
+    <hr>
+    <button class="btn btn-primary mb-3" (click)="createCoupon()">Create New Coupon</button>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Discount Percentage</th>
+          <th>Expiry Date</th>
+          <th>Current Uses</th>
+          <th>Max Uses</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coupon of coupons">
+          <td>{{ coupon.code }}</td>
+          <td>{{ coupon.discountPercentage }}%</td>
+          <td>{{ coupon.expiryDate | date }}</td>
+          <td>{{ coupon.currentUses }}</td>
+          <td>{{ coupon.maxUses }}</td>
+          <td>
+            <div class="btn-group" role="group">
+                <button class="btn btn-primary" (click)="editCoupon(coupon)">
+                  <i class="fas fa-edit"></i> <!-- Font Awesome icon for 'Edit' -->
+                </button>
+                <button class="btn btn-danger" (click)="deleteCoupon(coupon)">
+                  <i class="fas fa-trash-alt"></i> <!-- Font Awesome icon for 'Delete' -->
+                </button>
+              </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

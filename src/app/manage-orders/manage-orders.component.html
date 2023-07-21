@@ -1,20 +1,20 @@
 <div class="container">
     <h2>Manage Orders</h2>
-    <select [(ngModel)]="statusFilter" (ngModelChange)="filterByStatus(statusFilter)">
-        <option value="">All</option>
-        <option value="Confirmed">Confirmed</option>
-        <option value="Rejected">Rejected</option>
-        <option value="Validated">Validated</option>
-        <option value="Canceled">Canceled</option>
+<!-- Styling for the status filter -->
+<select class="status-filter" [(ngModel)]="statusFilter" (ngModelChange)="filterByStatus(statusFilter)">
+  <option value="">All</option>
+  <option value="Confirmed">Confirmed</option>
+  <option value="Rejected">Rejected</option>
+  <option value="Validated">Validated</option>
+  <option value="Canceled">Canceled</option>
+</select>
 
-        <!-- Add other status options as needed -->
-      </select>
-      
-      <!-- Add a select dropdown for sorting -->
-      <select [(ngModel)]="sortOption" (ngModelChange)="sortOrders()">
-        <option value="date">Sort by Date</option>
-        <option value="total">Sort by Total</option>
-      </select>
+<!-- Styling for the sorting select dropdown -->
+<select class="sort-dropdown" [(ngModel)]="sortOption" (ngModelChange)="sortOrders()">
+  <option value="date">Sort by Date</option>
+  <option value="total">Sort by Total</option>
+</select>
+
     <div class="order-list">
       <table class="table">
         <thead>
@@ -41,11 +41,20 @@
             <td>{{ order.status }}</td>
 
             <td>
-              <button class="btn btn-primary" (click)="editOrder(order)">Edit</button>
-              <button class="btn btn-success" (click)="confirmOrder(order)">Confirm</button>
-              <button class="btn btn-danger" (click)="rejectOrder(order)">Reject</button>
-              <button class="btn btn-warning" (click)="cancelOrder(order)">Cancel</button>
+              <button class="btn btn-primary" (click)="editOrder(order)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-success" (click)="confirmOrder(order)">
+                <i class="fas fa-check"></i>
+              </button>
+              <button class="btn btn-danger" (click)="rejectOrder(order)">
+                <i class="fas fa-times"></i>
+              </button>
+              <button class="btn btn-warning" (click)="cancelOrder(order)">
+                <i class="fas fa-ban"></i>
+              </button>
             </td>
+            
           </tr>
         </tbody>
       </table>
@@ -54,6 +63,7 @@
   
   <!-- CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
   <!-- JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

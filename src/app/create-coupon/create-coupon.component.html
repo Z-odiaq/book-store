@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>Create Coupon</h1>
+  <form (ngSubmit)="createCoupon()" #couponForm="ngForm">
+    <div class="form-group">
+      <label for="code">Code</label>
+      <input type="text" id="code" name="code" class="form-control" [(ngModel)]="newCoupon.code" required minlength="3">
+      <div *ngIf="couponForm.controls['code']?.dirty && couponForm.controls['code']?.invalid">
+        <div class="error" *ngIf="couponForm.controls['code']?.errors?.['required']">Code is required.</div>
+        <div class="error" *ngIf="couponForm.controls['code']?.errors?.['minlength']">Code must be at least 3 characters long.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="discountPercentage">Discount Percentage</label>
+      <input type="number" id="discountPercentage" name="discountPercentage" class="form-control" [(ngModel)]="newCoupon.discountPercentage" required min="1" max="100">
+      <div *ngIf="couponForm.controls['discountPercentage']?.dirty && couponForm.controls['discountPercentage']?.invalid">
+        <div class="error" *ngIf="couponForm.controls['discountPercentage']?.errors?.['required']">Discount Percentage is required.</div>
+        <div class="error" *ngIf="couponForm.controls['discountPercentage']?.errors?.['min'] || couponForm.controls['discountPercentage']?.errors?.['max']">Discount Percentage must be between 1 and 100.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="expiryDate">Expiry Date</label>
+      <input type="date" id="expiryDate" name="expiryDate" class="form-control" [(ngModel)]="newCoupon.expiryDate" required>
+      <div *ngIf="couponForm.controls['expiryDate']?.dirty && couponForm.controls['expiryDate']?.invalid">
+        <div class="error" *ngIf="couponForm.controls['expiryDate']?.errors?.['required']">Expiry Date is required.</div>
+        <div class="error" *ngIf="couponForm.controls['expiryDate']?.errors?.['pattern']">Expiry Date must be in correct format (YYYY-MM-DD).</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="maxUses">Max Uses</label>
+      <input type="number" id="maxUses" name="maxUses" class="form-control" [(ngModel)]="newCoupon.maxUses" required min="1">
+      <div *ngIf="couponForm.controls['maxUses']?.dirty && couponForm.controls['maxUses']?.invalid">
+        <div class="error" *ngIf="couponForm.controls['maxUses']?.errors?.['required']">Max Uses is required.</div>
+        <div class="error" *ngIf="couponForm.controls['maxUses']?.errors?.['min']">Max Uses must be at least 1.</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Coupon</button>
+  </form>
+</div>

@@ -9,7 +9,7 @@ import { ManageBooksComponent } from './manage-books/manage-books.component';
 
 import { ViewBookComponent } from './view-book/view-book.component';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
-
+import { ManageCouponComponent } from './manage-coupon/manage-coupon.component';
 
 
 
@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/books', pathMatch: 'full' }, // Default route
   { path: 'orders', component: OrdersComponent }, // Add this line
   { path: 'manage-books', component: ManageBooksComponent },
-  { path: 'manage-orders', component: ManageOrdersComponent }
+  { path: 'manage-orders', component: ManageOrdersComponent },
+  { path: 'manage-coupon', component: ManageCouponComponent },
 
 ];
 

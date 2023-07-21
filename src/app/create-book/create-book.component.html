@@ -63,7 +63,7 @@
         <input type="file" class="form-control" name="pdfVersion" required>
         <div *ngIf="createForm.controls['pdfVersion']?.errors?.['required'] && createForm.controls['pdfVersion'].dirty" class="error-message">PDF Version is required.</div>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Create Book</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid || loading">Create Book</button>
     </form>
   </div>
 </div>

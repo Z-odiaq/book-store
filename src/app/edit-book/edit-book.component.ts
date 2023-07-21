@@ -39,12 +39,12 @@ export class EditBookComponent {
     this.http.put<any>('http://127.0.0.1:3000/api/books/'+ this.book._id, formData).subscribe(
       (response) => {
         console.log(response);
-        const confirmDelete = window.confirm('The Book Was Successfully created.');
+       window.confirm('The Book Was Successfully created.');
         // this.dialogRef.close();
       },
       (error) => {
         console.error(error);
-        const confirmDelete = window.confirm('There was an error creating the book.');
+         window.confirm('There was an error creating the book.');
       }
     );
   }
