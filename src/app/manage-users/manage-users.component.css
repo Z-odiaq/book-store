@@ -1,0 +1,36 @@
+/* Add your custom styles here */
+.user-list {
+    margin-bottom: 20px;
+  }
+  
+  .user-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-list th, .user-list td {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .user-form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .user-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .user-form input, .user-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .user-form button {
+    padding: 8px 15px;
+    margin-right: 10px;
+  }
+  

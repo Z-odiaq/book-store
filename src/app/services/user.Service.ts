@@ -1,6 +1,7 @@
 import { Injectable, NgModule } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable,throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 //import user
 import { User } from '../models/user';
@@ -14,7 +15,7 @@ export class UserService {
     token: string = '';
     email = '';
     password = '';
-    admin : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    admin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     firstname = '';
     lastname = '';
     favoriteBadgeCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -45,38 +46,29 @@ export class UserService {
             });
     }
 
-    registerUser() {
-        this.errorMsg = '';
-        fetch('http://127.0.0.1:3000/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: this.email, password: this.password, firstname: this.firstname, lastname: this.lastname }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                if (data.error) {
-                    this.errorMsg = data.error;
-                    return;
-                }
-                localStorage.setItem('token', data.token);
-                this.user = data.user;
-                this.token = data.token;
-                this.favoriteBadgeCountSubject.next(data.user.favorites.length);
-                this.loggedInSubject.next(true);
-                if (data.user.role === 'admin') {
-                    this.admin.next(true);
-                }
-            })
-            .catch((err) => {
-                this.errorMsg = err;
-                console.log(err);
-            })
+    registerUser(user: User): Observable<User> {
+        const url = 'http://127.0.0.1:3000/api/register';
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          })
+        };
+      
+        return this.http.post<User>(url, user, httpOptions).pipe(
+          catchError(error => {
+            // Handle the error here
 
-
-    }
+            console.error('Error occurred:', error.error.error);
+            // You can customize the error message here
+            const errorMessage = 'An error occurred. Please try again later.';
+            // Show the error message in an alert box
+            alert(error.error.error);
+            // Re-throw the error so it can be handled by the subscriber as well
+            return throwError(errorMessage);
+          })
+        );
+      }
+      
 
     login() {
         fetch('http://127.0.0.1:3000/api/login', {
@@ -117,5 +109,26 @@ export class UserService {
     getToken(): string {
         return localStorage.getItem('token') || '';
     }
+    disconnect(): void {
+        localStorage.removeItem('token');
+        this.user = {} as User;
+        this.token = '';
+        this.favoriteBadgeCountSubject.next(0);
+        this.loggedInSubject.next(false);
+        this.admin.next(false);
+        //reload the page
+        window.location.reload();
+    }
 
+    getUsers(): Observable<User[]> {
+        return this.http.get<User[]>('http://127.0.0.1:3000/api/users');
+    }
+
+    updateUser(user: User): Observable<User> {
+        return this.http.put<User>('http://127.0.0.1:3000/api/users/' + user._id, user);
+    }
+
+    deleteUser(userId: string): Observable<User> {
+        return this.http.delete<User>('http://127.0.0.1:3000/api/users/' + userId);
+    }
 }

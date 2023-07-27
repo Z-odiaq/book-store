@@ -8,28 +8,35 @@ import { Book } from '../models/book';
 export class CartService {
 
   private cartBadgeCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  //cartBadgeCount$ = this.cartBadgeCountSubject.asObservable();
-  private cartItems: Book[] = [];
+  private cartItemsSubject: BehaviorSubject<Book[]> = new BehaviorSubject<Book[]>([]);
+  cartUpdated: Observable<Book[]> = this.cartItemsSubject.asObservable();
+
+  private cartItems: Book[] = []; // Changed to a regular array to store cart items
+
   coupon: any;
 
   setCoupon(data: any) {
     this.coupon = data;
   }
+
   getCoupon() {
     return this.coupon;
   }
+
   getCartItems(): Book[] {
     return this.cartItems;
   }
+
   getTotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.price , 0);
+    return this.cartItems.reduce((total, item) => total + item.price, 0);
   }
+
   addToCart(book: Book): void {
     const foundBook = this.cartItems.find((item) => item._id === book._id);
     if (foundBook) {
       return;
     } else {
-      const bookCopy: Book = { ...book  };
+      const bookCopy: Book = { ...book };
       this.cartItems.push(bookCopy);
     }
     this.updateCartBadgeCount();
@@ -47,12 +54,11 @@ export class CartService {
   }
 
   clearCart(): void {
-    this.cartItems = [];
+    this.cartItems = []; // Clear the cart items array
     localStorage.removeItem('cart');
     this.updateCartBadgeCount();
+    this.cartItemsSubject.next(this.cartItems); // Emit updated cart items
   }
-
-
 
   getCartBadgeCount(): Observable<number> {
     return this.cartBadgeCountSubject.asObservable();
@@ -72,9 +78,8 @@ export class CartService {
     const cart = localStorage.getItem('cart');
     if (cart) {
       this.cartItems = JSON.parse(cart);
+      this.cartItemsSubject.next(this.cartItems); // Emit updated cart items
       this.updateCartBadgeCount();
     }
   }
-
-
 }

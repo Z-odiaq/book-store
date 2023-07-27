@@ -9,6 +9,7 @@ export interface User {
     likedBooks: String[];
     purchased: String[];
     role : String;
+    password? : String;
     favorites: String[];
     orders: String[];
     createdAt: Date;

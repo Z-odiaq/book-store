@@ -66,8 +66,8 @@
           </span>
           <p class="book-author">{{ book.author }}</p>
           <p class="book-price">Price: ${{ book.price }}</p>
-          <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
           <div *ngIf="this.userService.token">
+            <button mat-raised-button color="primary" (click)="addToCart(book)">Add to Cart</button>
             <button class="favorite-button" aria-hidden="true" (click)="this.bookService.addToFavorites(book._id)"
               [ngClass]="{ 'favorite': this.bookService.isFavorite(book)  }">
               <i class="fa fa-heart" aria-hidden="true"></i>

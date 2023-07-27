@@ -7,6 +7,7 @@ import { UserService } from '../services/user.Service';
 import { BookService } from '../services/book.service';
 import { environment } from '../../environments/environment';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 export class CartComponent implements OnInit {
   stripe: Stripe | null = null;
   paymentHandler: any = null;
-
+  cartSubscription: Subscription = new Subscription();
   cartItems: Book[] = [];
   total: number = 0;
   couponTotal: number = 0;
@@ -37,6 +38,10 @@ export class CartComponent implements OnInit {
   }
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
+    this.cartSubscription = this.cartService.cartUpdated.subscribe((updatedCartItems: Book[]) => {
+      this.cartItems = updatedCartItems;
+      // Calculate the total again if needed
+    });
     this.calculateTotal();
     this.fetchfavorites();
     this.fetchLatests();
@@ -240,9 +245,12 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    this.cartItems = [];
     this.total = 0;
     this.cartService.clearCart();
+    this.cartItems = this.cartService.getCartItems();
+
+
+
   }
 
 

@@ -1,0 +1,105 @@
+<div class="container mt-4">
+  <!-- Search bar -->
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <input type="text" class="form-control" placeholder="Search users" [(ngModel)]="searchQuery" (input)="applySearch()">
+    </div>
+  </div>
+
+  <!-- Users List -->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Users List</h2>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of FilteredUsers">
+            <td>{{ user._id }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editUser(user)">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-danger" (click)="deleteUser(user._id)">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add/Edit User Form -->
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2>Add/Edit User</h2>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="firstname">First Name:</label>
+          <input type="text" id="firstname" name="firstname" class="form-control" [(ngModel)]="selectedUser.firstname" [required]="!isEditMode" #firstname="ngModel">
+          <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="text-danger">
+            <div *ngIf="firstname.errors?.['required']">First Name is required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="lastname">Last Name:</label>
+          <input type="text" id="lastname" name="lastname" class="form-control" [(ngModel)]="selectedUser.lastname" [required]="!isEditMode" #lastname="ngModel">
+          <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="text-danger">
+            <div *ngIf="lastname.errors?.['required']">Last Name is required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" class="form-control" [(ngModel)]="selectedUser.email" [required]="!isEditMode"  email #email="ngModel">
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+            <div *ngIf="email.errors?.['required']">Email is required.</div>
+            <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" class="form-control" [(ngModel)]="selectedUser.password" [required]="!isEditMode" #password="ngModel">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+            <div *ngIf="password.errors?.['required']">Password is required.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="role">Role:</label>
+          <select id="role" name="role" class="form-control" [(ngModel)]="selectedUser.role" [required]="!isEditMode" #role="ngModel">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <div *ngIf="role.invalid && (role.dirty || role.touched)" class="text-danger">
+            <div *ngIf="role.errors?.['required']">Role is required.</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
+          {{ isEditMode ? 'Update' : 'Add' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Cancel
+        </button>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  

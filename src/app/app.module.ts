@@ -29,6 +29,7 @@ import { EditOrdersComponent } from './edit-orders/edit-orders.component';
 import { ManageCouponComponent } from './manage-coupon/manage-coupon.component';
 import { CreateCouponComponent } from './create-coupon/create-coupon.component';
 import { EditCouponComponent } from './edit-coupon/edit-coupon.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { EditCouponComponent } from './edit-coupon/edit-coupon.component';
     ManageCouponComponent,
     CreateCouponComponent,
     EditCouponComponent,
+    ManageUsersComponent,
     
     
   ],
